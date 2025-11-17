@@ -1,0 +1,133 @@
+﻿@page
+@model DentalFlow.Pages.Bookings.ReviewModel
+@{
+    Layout = "_DentalFlowLayout";
+    ViewData["Title"] = "Bekräfta bokning";
+}
+
+<div class="review-container">
+    <div class="review-box">
+
+        <h2 class="review-title">
+            <i class="fa-solid fa-clipboard-check"></i> Bekräfta bokning
+        </h2>
+
+        <div class="review-details">
+            <div><span>Behandling:</span> <strong>@Model.Service.Name</strong></div>
+            <div><span>Datum:</span> <strong>@Model.SelectedDateTime.ToString("yyyy-MM-dd")</strong></div>
+            <div><span>Tid:</span> <strong>@Model.SelectedDateTime.ToString("HH:mm")</strong></div>
+            <div><span>Pris:</span> <strong>@Model.Service.Price kr</strong></div>
+        </div>
+
+        <form method="post" class="review-form">
+
+            <!-- Hidden fields (viktigt!) -->
+            <input type="hidden" asp-for="ServiceId" />
+            <input type="hidden" asp-for="UnixTicks" />
+
+            <h3 class="section-title">Dina uppgifter</h3>
+
+            <label class="input-label">Namn</label>
+            <input asp-for="Name" class="form-input" required />
+
+            <label class="input-label">Email</label>
+            <input asp-for="Email" type="email" class="form-input" required />
+
+            <label class="input-label">Telefon</label>
+            <input asp-for="Phone" class="form-input" />
+
+            <button type="submit" class="btn-confirm">Bekräfta bokning</button>
+
+        </form>
+
+    </div>
+</div>
+
+<style>
+    .review-container {
+        display: flex;
+        justify-content: center;
+        padding-top: 40px;
+        padding-bottom: 60px;
+    }
+
+    .review-box {
+        width: 520px;
+        background: #fff;
+        padding: 28px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .review-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #333;
+    }
+
+    .review-details div {
+        margin-bottom: 8px;
+        font-size: 16px;
+    }
+
+    .review-details span {
+        display: inline-block;
+        width: 120px;
+        color: #666;
+    }
+
+    .section-title {
+        font-size: 18px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        color: #444;
+        font-weight: bold;
+    }
+
+    .input-label {
+        margin-top: 12px;
+        margin-bottom: 4px;
+        font-size: 14px;
+        color: #444;
+        display: block;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        font-size: 15px;
+        background: #f9f9f9;
+        transition: .2s;
+    }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #0077ff;
+            background: white;
+            box-shadow: 0 0 6px rgba(0,119,255,.3);
+        }
+
+    .btn-confirm {
+        background: #0077ff;
+        padding: 12px 20px;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.2s;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+        .btn-confirm:hover {
+            background: #005fcc;
+        }
+</style>

@@ -1,14 +1,240 @@
 ﻿@page
 @model DentalFlow.Pages.Services.IndexModel
+@{
+    Layout = "_DentalFlowLayout";   // <-- OBS! Bara filnamn, inte full path!
+    ViewData["Title"] = "Välj behandling";
+}
 
-<h2>Välj behandling</h2>
-<hr />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-<div class="list-group">
-    @foreach (var s in Model.Services)
-    {
-        <a class="list-group-item list-group-item-action" href="/Bookings/Create/@s.Id">
-            @s.Name — @s.DurationMinutes min — @s.Price kr
-        </a>
+<style>
+    :root {
+        --blue-900: #073b78;
+        --blue-800: #0d4fa6;
+        --blue-700: #1A74E4;
+        --blue-400: #4FB4FF;
+        --blue-100: #eef5ff;
+        --paper: #ffffff;
+        --page: #f3f8ff;
+        --text: #083b78;
+        --muted: #3c6fab;
+        --border: #d7e7ff;
     }
-</div>
+
+    .dark {
+        --blue-900: #cfe3ff;
+        --blue-800: #bdd6ff;
+        --blue-700: #70a8ff;
+        --blue-100: #0f1f38;
+        --paper: #0d1a31;
+        --page: #071225;
+        --text: #eaf1ff;
+        --muted: #9ab7e7;
+        --border: #2c4167;
+    }
+
+    .df-card {
+        background: var(--paper);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 14px;
+        transition: .2s;
+        cursor: pointer;
+    }
+
+        .df-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0,0,0,.08);
+            background: var(--blue-100);
+        }
+
+    .df-info {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+    }
+
+    .df-icon {
+        font-size: 26px;
+        color: var(--blue-700);
+    }
+
+    .df-name {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text);
+    }
+
+    .df-meta {
+        font-size: 14px;
+        color: var(--muted);
+    }
+
+    .df-price-pill {
+        font-size: 12px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: #fff;
+        border: 1px solid var(--border);
+        color: var(--blue-800);
+    }
+
+    .df-btn {
+        background: var(--blue-700);
+        color: #fff;
+        padding: 10px 14px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 700;
+    }
+
+    .df-sub {
+        color: var(--muted);
+        font-size: 16px;
+        max-width: 520px;
+        margin-bottom: 18px;
+    }
+
+    .df-hero {
+        margin-top: 20px;
+        margin-bottom: 35px;
+        text-align: center;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .df-hero-img-wrapper {
+        margin-top: 14px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .df-hero-img {
+        max-width: 420px;
+        width: 100%;
+        border-radius: 18px;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, .08);
+        transition: .25s;
+    }
+
+        .df-hero-img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 14px 38px rgba(0, 0, 0, .12);
+        }
+
+    /* Desktop tagline center */
+    .df-subtext {
+        text-align: center;
+        max-width: 520px;
+        margin: 0 auto 18px auto;
+    }
+
+    /* Mobile adjustments */
+    @@media (max-width: 768px) {
+        .df-subtext
+
+    {
+        text-align: left !important;
+        max-width: 280px;
+        margin-left: 0 !important;
+        margin-right: auto !important;
+        margin-bottom: 18px;
+        line-height: 1.35;
+        display: block;
+        font-size: 14px;
+    }
+
+    .df-subtext::before {
+        content: "";
+        display: block;
+        width: 32px;
+        height: 2px;
+        background: var(--blue-700);
+        margin-bottom: 8px;
+        border-radius: 2px;
+    }
+
+    .df-sub::before {
+        content: none !important; /* No line on mobile */
+    }
+
+    .df-sub span {
+        display: block;
+        text-align: center;
+        margin-top: 2px;
+    }
+
+    }
+</style>
+
+
+<div class="container py-5">
+
+    <div class="df-hero text-center mb-4">
+        <h1 class="fw-bold">Våra behandlingar</h1>
+
+        <div class="df-hero-img-wrapper">
+            <img src="~/images/dentist.jpg"
+                 alt="Professionell tandläkare"
+                 class="df-hero-img" />
+        </div>
+
+        <h2 class="text-center mb-4 fw-bold">Välj din behandling</h2>
+
+        <p class="df-sub df-subtext mx-auto">
+            Trygg tandvård — legitimerade tandläkare — <span>transparent pris</span>
+        </p>
+
+
+
+
+    </div>
+
+
+
+
+    
+
+@functions {
+    string IconFor(string name)
+    {
+        name = name?.ToLower() ?? "";
+        if (name.Contains("hygien")) return "fa-sparkles";
+        if (name.Contains("akut")) return "fa-triangle-exclamation";
+        if (name.Contains("blek")) return "fa-wand-magic-sparkles";
+        return "fa-tooth";
+    }
+}
+
+
+
+@foreach (var service in Model.Services)
+{
+        <div class="df-card"
+             onclick="location.href='@Url.Page("/Bookings/Index", new { serviceId = service.Id })'">
+
+
+            <div class="df-info">
+                <i class="fa-solid @IconFor(service.Name) df-icon"></i>
+                <div>
+                    <div class="df-name">@service.Name</div>
+                    <div class="df-meta">
+                        @service.DurationMinutes min
+                        <span class="df-price-pill">@service.Price kr</span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="df-btn"
+                    onclick="location.href='@Url.Page("/Bookings/Index", new { serviceId = service.Id })'">
+                Välj
+            </button>
+
+        </div>
+
+}

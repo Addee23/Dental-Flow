@@ -10,11 +10,16 @@ namespace DentalFlow.Pages.Services
         private readonly AppDbContext _context;
         public List<Service> Services { get; set; } = new();
 
-        public IndexModel(AppDbContext context) => _context = context;
-
-        public async Task OnGetAsync()
+        public IndexModel(AppDbContext context)
         {
-            Services = await _context.Services.AsNoTracking().ToListAsync();
+            _context = context;
+        }
+
+        public void OnGet()
+        {
+            Services = _context.Services
+                .OrderBy(s => s.DurationMinutes)
+                .ToList();
         }
     }
 }

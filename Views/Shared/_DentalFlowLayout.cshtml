@@ -1,0 +1,353 @@
+﻿<!DOCTYPE html>
+<html lang="sv" class="df-root">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] — DentalFlow</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+
+
+    <style>
+        :root {
+            --blue-900: #073b78;
+            --blue-800: #0d4fa6;
+            --blue-700: #1A74E4;
+            --blue-400: #4FB4FF;
+            --blue-100: #eef5ff;
+            --paper: #fff;
+            --text: #083b78;
+            --muted: #3c6fab;
+            --border: #d7e7ff;
+            --page: #f3f8ff;
+        }
+
+        .dark {
+            --blue-900: #cfe3ff;
+            --blue-800: #bdd6ff;
+            --blue-700: #70a8ff;
+            --blue-100: #0f1f38;
+            --paper: #0d1a31;
+            --text: #eaf1ff;
+            --muted: #9ab7e7;
+            --border: #2c4167;
+            --page: #071225;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background: var(--page);
+            color: var(--text);
+        }
+
+        header {
+            background: var(--paper);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 22px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+            header img {
+                height: 26px;
+            }
+
+        .df-logo-text {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--blue-800);
+        }
+
+        main {
+            padding: 32px 0;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: auto;
+            padding: 0 16px;
+        }
+
+        /* --- Desktop layout --- */
+        .df-nav { /
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .df-logo img {
+            height: 26px;
+        }
+
+        .df-nav-center {
+            display: flex;
+            gap: 24px;
+        }
+
+        .df-link {
+            text-decoration: none;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+            .df-link:hover {
+                color: var(--blue-700);
+            }
+
+        .df-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .df-login-btn {
+            background: var(--blue-700);
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+            .df-login-btn:hover {
+                background: var(--blue-800);
+            }
+
+        .df-burger {
+            display: none;
+            background: none;
+            border: 0;
+            font-size: 22px;
+            color: var(--text);
+        }
+
+        /* Mobilmeny (stängd som default) */
+        .df-mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            background: var(--paper);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 22px;
+        }
+
+        .df-mobile-link {
+            text-decoration: none;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .df-mobile-login {
+            margin-top: 6px;
+            background: var(--blue-700);
+            color: #fff;
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* --- Breakpoint: mobil --- */
+        @@media (max-width: 768px) {
+            .df-nav-center {
+                display: none;
+            }
+            /* göm desktoplänkar */
+            .df-login-btn {
+                display: none;
+            }
+            /* göm desktopknapp */
+            .df-burger {
+                display: inline-flex;
+            }
+            /* visa hamburgerknapp */
+        }
+
+        /* Dölj hamburger-ikon i desktop */
+        @@media (min-width: 768px) {
+            .df-burger
+
+        {
+            display: none !important;
+        }
+
+        }
+
+        @@media (min-width: 768px) {
+            #dfMobileMenu
+
+        {
+            display: none !important;
+        }
+
+        }
+
+        /* --- Desktop Navbar förbättringar --- */
+        @@media (min-width: 768px) {
+            header
+
+        {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 40px; /* mer luft på kanterna */
+        }
+
+        /* Sprid ut länkarna */
+        .df-nav-desktop {
+            display: flex;
+            gap: 28px; /* öka avstånd mellan nav-items */
+            align-items: center;
+        }
+
+            .df-nav-desktop a {
+                text-decoration: none;
+                font-weight: 500;
+                font-size: 15px;
+                color: var(--text);
+                transition: 0.2s ease;
+            }
+
+                .df-nav-desktop a:hover {
+                    color: var(--blue-700);
+                }
+
+        /* Login-knapp lite snyggare */
+        .df-login-btn {
+            padding: 6px 16px;
+            border-radius: 6px;
+            background: var(--blue-700);
+            color: white !important;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.2s ease;
+        }
+
+            .df-login-btn:hover {
+                background: var(--blue-900);
+            }
+
+        /* Dölj burger i desktop */
+        .df-burger {
+            display: none !important;
+        }
+
+        }
+
+        /* Lite snyggare navbar-länkar – safe mode */
+        @@media (min-width: 768px) {
+            .df-nav-center a
+
+        {
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text);
+            text-decoration: none;
+            transition: 0.25s ease;
+        }
+
+        /* mjuk hover – lyfter länken lite, utan att förstöra */
+        .df-nav-center a:hover {
+            background: var(--blue-100);
+            color: var(--blue-800);
+        }
+
+        /* aktiv sida markerad */
+        .df-nav-center a.active {
+            background: var(--blue-100);
+            color: var(--blue-800);
+            font-weight: 600;
+        }
+
+        }
+
+        /* === Premium Desktop Nav Style Upgrade === */
+        @@media (min-width: 768px) {
+            .df-nav-center a
+
+        {
+            font-weight: 600; /* fetare */
+            font-size: 16px;
+            letter-spacing: 0.2px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: 0.25s ease;
+            color: var(--text);
+        }
+
+        /* mjuk subtil underline + hover background */
+        .df-nav-center a:hover {
+            background: rgba(0, 96, 255, 0.08);
+            color: var(--blue-800);
+            box-shadow: 0 2px 0 var(--blue-700);
+        }
+
+        /* aktiv sida */
+        .df-nav-center a.active {
+            background: rgba(0, 96, 255, 0.12);
+            color: var(--blue-800);
+            font-weight: 700;
+            box-shadow: 0 2px 0 var(--blue-800);
+        }
+
+        }
+    </style>
+
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <header class="df-nav">
+        <a class="df-logo" asp-page="/Index">
+            <img src="/images/dentalflow-logo-blue.svg" alt="DentalFlow">
+        </a>
+
+        <nav class="df-nav-center">
+            <a asp-page="/Index" class="df-link">Hem</a>
+            <a asp-page="/Services/Index" class="df-link">Behandlingar</a>
+            <a asp-page="/Booking/SelectDate" class="df-link">Boka tid</a>
+            <a asp-page="/Contact" class="df-link">Kontakt</a>
+        </nav>
+
+        <div class="df-actions">
+            <a asp-page="/Login" class="df-login-btn">Logga in</a>
+            <button id="dfBurger" class="df-burger" aria-label="Öppna meny">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobilmeny som fälls ut under headern -->
+    <nav id="dfMobileMenu" class="df-mobile-menu">
+        <a asp-page="/Index" class="df-mobile-link">Hem</a>
+        <a asp-page="/Services/Index" class="df-mobile-link">Behandlingar</a>
+        <a asp-page="/Booking/SelectDate" class="df-mobile-link">Boka tid</a>
+        <a asp-page="/Contact" class="df-mobile-link">Kontakt</a>
+        <a asp-page="/Login" class="df-mobile-login">Logga in</a>
+    </nav>
+
+
+    <main class="container">
+        @RenderBody()
+    </main>
+
+    @RenderSection("Scripts", required: false)
+
+    <script>
+        const burger = document.getElementById('dfBurger');
+        const mobile = document.getElementById('dfMobileMenu');
+
+        burger?.addEventListener('click', () => {
+          const open = mobile.style.display === 'flex';
+          mobile.style.display = open ? 'none' : 'flex';
+        });
+    </script>
+
+</body>
+</html>

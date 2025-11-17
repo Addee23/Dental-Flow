@@ -10,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
+
 builder.Services
     .AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
@@ -17,7 +19,13 @@ builder.Services
 
 builder.Services.AddRazorPages();
 
+builder.Services.Configure<Microsoft.AspNetCore.Mvc.MvcOptions>(o =>
+{
+    o.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+});
+
 var app = builder.Build();
+
 
 // Migrate + seed services
 using (var scope = app.Services.CreateScope())
@@ -53,5 +61,20 @@ using (var scope = app.Services.CreateScope())
     await DentalFlow.Data.Seed.AdminSeeder.SeedAdminAsync(userManager);
 }
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.EnsureCreated();
+
+    if (!db.Services.Any())
+    {
+        db.Services.AddRange(
+            new Service { Name = "Tandundersökning", DurationMinutes = 45, Price = 850 },
+            new Service { Name = "Tandblekning", DurationMinutes = 60, Price = 950 },
+            new Service { Name = "Akutbesök", DurationMinutes = 30, Price = 650 }
+        );
+        db.SaveChanges();
+    }
+}
 
 app.Run();

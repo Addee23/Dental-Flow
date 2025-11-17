@@ -1,0 +1,86 @@
+﻿@page
+<h1 style="color:red">TEST FILEN LADDAR</h1>
+
+@model DentalFlow.Pages.Bookings.IndexModel
+@{
+    Layout = "_DentalFlowLayout";
+    ViewData["Title"] = "Boka tid";
+}
+
+<h2 class="df-title">Boka tid</h2>
+
+<div class="df-container">
+
+    <h2 class="df-title-2">Välj datum</h2>
+
+    <input name="selectedDate"
+           type="date"
+           value="@Model.SelectedDate.ToString("yyyy-MM-dd")"
+           class="form-control"
+           onchange="window.location='@Url.Page("/Bookings/Index", new { ServiceId = Model.ServiceId })&selectedDate=' + this.value;"
+ />
+
+    <h2 class="df-title-2 mt-4">Välj tid</h2>
+
+    @if (Model.AvailableTimes != null)
+    {
+        <div class="df-time-grid">
+            @foreach (var time in Model.AvailableTimes)
+            {
+             
+<a class="df-card-time"
+   href="@Url.Page("/Bookings/Review", new {
+       ServiceId = Model.ServiceId,
+       UnixTicks = time.Ticks
+   })">
+    @time.ToString("HH:mm")
+</a>
+
+
+            }
+        </div>
+    }
+</div>
+
+<style>
+    .df-container {
+        padding: 20px;
+        max-width: 600px;
+        margin: auto;
+    }
+
+    .df-title {
+        font-size: 28px;
+        margin-bottom: 15px;
+    }
+
+    .df-title-2 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .df-time-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .df-card-time {
+        padding: 10px;
+        background: #f8f8f8;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 16px;
+        text-decoration: none;
+        color: #000;
+        border: 1px solid #ddd;
+        transition: 0.2s;
+    }
+
+    .df-card-time:hover {
+        background: #007bff;
+        color: white;
+        border-color: #007bff;
+    }
+</style>
