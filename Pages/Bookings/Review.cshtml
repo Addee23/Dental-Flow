@@ -20,25 +20,24 @@
         </div>
 
         <form method="post" class="review-form">
+            @Html.AntiForgeryToken()
 
-            <!-- Hidden fields (viktigt!) -->
             <input type="hidden" asp-for="ServiceId" />
-            <input type="hidden" asp-for="UnixTicks" />
-
-            <h3 class="section-title">Dina uppgifter</h3>
+            <input type="hidden" asp-for="DateTimeString" />
 
             <label class="input-label">Namn</label>
-            <input asp-for="Name" class="form-input" required />
+            <input asp-for="Name" name="Name" class="form-input" required />
 
             <label class="input-label">Email</label>
-            <input asp-for="Email" type="email" class="form-input" required />
+
+            <input asp-for="Email" name="Email" type="email" class="form-input" required />
 
             <label class="input-label">Telefon</label>
-            <input asp-for="Phone" class="form-input" />
+            <input asp-for="Phone" name="Phone" class="form-input" />
 
             <button type="submit" class="btn-confirm">Bekräfta bokning</button>
-
         </form>
+
 
     </div>
 </div>

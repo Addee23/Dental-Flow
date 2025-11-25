@@ -1,24 +1,35 @@
-using DentalFlow.Data;
-using DentalFlow.Data.Seed;
-using DentalFlow.Models;
+﻿using DentalFlow.Data;
+using DentalFlow.Models.Auth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using DentalFlow.Data.Seed;
+using DentalFlow.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// DB & Identity
+// -----------------------------
+// Database + Identity
+// -----------------------------
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
-
 builder.Services
-    .AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<AppDbContext>()
-    .AddDefaultTokenProviders();
+    .AddDefaultIdentity<ApplicationUser>(options =>
+    {
+        options.SignIn.RequireConfirmedAccount = false;
+    })
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>();
 
+// Razor Pages
 builder.Services.AddRazorPages();
 
+builder.Services.AddControllersWithViews();
+
+// Session MUST be enabled before building the app
+builder.Services.AddSession();
+
+// Avoid implicit required errors
 builder.Services.Configure<Microsoft.AspNetCore.Mvc.MvcOptions>(o =>
 {
     o.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
@@ -26,8 +37,9 @@ builder.Services.Configure<Microsoft.AspNetCore.Mvc.MvcOptions>(o =>
 
 var app = builder.Build();
 
-
-// Migrate + seed services
+// -----------------------------
+// Database migration + seeding
+// -----------------------------
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -35,7 +47,9 @@ using (var scope = app.Services.CreateScope())
     SeedData.Initialize(db);
 }
 
-// Middleware
+// -----------------------------
+// Middleware pipeline
+// -----------------------------
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
@@ -44,37 +58,39 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
+
+// ✔ FIX: Session MUST COME BEFORE Authentication/Authorization
+app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Admin route
+// Admin route – måste ligga först
+app.MapAreaControllerRoute(
+    name: "admin",
+    areaName: "Admin",
+    pattern: "admin/{controller=Home}/{action=Index}/{id?}");
+
+// Default route
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+// Razor Pages routing
 app.MapRazorPages();
 
-// seed roles + admin
+// Seed roles + admin user
 using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-    await DentalFlow.Data.Seed.RoleSeeder.SeedRolesAsync(roleManager);
-    await DentalFlow.Data.Seed.AdminSeeder.SeedAdminAsync(userManager);
-}
-
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.EnsureCreated();
-
-    if (!db.Services.Any())
-    {
-        db.Services.AddRange(
-            new Service { Name = "Tandunders�kning", DurationMinutes = 45, Price = 850 },
-            new Service { Name = "Tandblekning", DurationMinutes = 60, Price = 950 },
-            new Service { Name = "Akutbes�k", DurationMinutes = 30, Price = 650 }
-        );
-        db.SaveChanges();
-    }
+    await RoleSeeder.SeedRolesAsync(roleManager);
+    await AdminSeeder.SeedAdminAsync(userManager);
 }
 
 app.Run();

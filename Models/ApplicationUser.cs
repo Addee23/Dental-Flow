@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace DentalFlow.Models
+
+namespace DentalFlow.Models.Auth
 {
     public class ApplicationUser : IdentityUser
     {
-        public string? FullName { get; set; }
+        public string FullName { get; set; }
     }
 }

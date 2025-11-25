@@ -1,0 +1,160 @@
+﻿@page
+@model LoginModel
+
+
+<style>
+    /* === Wrapper === */
+    .df-login-wrapper {
+        min-height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+        background: var(--page);
+    }
+
+    /* === Login Card === */
+    .df-login-card {
+        width: 100%;
+        max-width: 430px;
+        background: var(--paper);
+        padding: 36px 30px;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        box-shadow: 0 6px 22px rgba(0, 0, 0, 0.06);
+        animation: fadeIn 0.3s ease;
+    }
+
+    /* === Title === */
+    .df-login-title {
+        text-align: center;
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--blue-800);
+        margin-bottom: 8px;
+    }
+
+    .df-login-subtitle {
+        text-align: center;
+        font-size: 15px;
+        color: var(--muted);
+        margin-bottom: 26px;
+    }
+
+    /* === Inputs === */
+    .df-form-group {
+        margin-bottom: 18px;
+    }
+
+    label {
+        font-weight: 600;
+        color: var(--text);
+        display: block;
+        margin-bottom: 6px;
+    }
+
+    .df-input {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--page);
+        font-size: 15px;
+        transition: 0.2s;
+    }
+
+        .df-input:focus {
+            outline: none;
+            border-color: var(--blue-600);
+            box-shadow: 0 0 0 2px rgba(74, 144, 255, 0.25);
+            background: white;
+        }
+
+    /* === Button === */
+    .df-login-btn-lg {
+        width: 100%;
+        padding: 12px 18px;
+        background: var(--blue-700);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s ease;
+        margin-top: 4px;
+    }
+
+        .df-login-btn-lg:hover {
+            background: var(--blue-800);
+        }
+
+    /* === Links === */
+    .df-login-links {
+        text-align: center;
+        margin-top: 18px;
+    }
+
+        .df-login-links a {
+            text-decoration: none;
+            color: var(--blue-700);
+            font-weight: 600;
+            margin: 0 8px;
+        }
+
+            .df-login-links a:hover {
+                text-decoration: underline;
+            }
+
+    /* === Error text === */
+    .df-error {
+        font-size: 12px;
+        color: #d9534f;
+    }
+
+    /* === Fade animation === */
+    @@keyframes fadeIn {
+        0%
+
+    {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+</style>
+
+
+
+<div class="df-login-wrapper">
+    <div class="df-login-card">
+        <h1 class="df-login-title">Logga in</h1>
+        <p class="df-login-subtitle">Välkommen tillbaka — fortsätt till ditt konto</p>
+
+        <form method="post">
+            <div class="df-form-group">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="df-input" />
+                <span asp-validation-for="Input.Email" class="df-error"></span>
+            </div>
+
+            <div class="df-form-group">
+                <label asp-for="Input.Password"></label>
+                <input asp-for="Input.Password" class="df-input" />
+                <span asp-validation-for="Input.Password" class="df-error"></span>
+            </div>
+
+            <button type="submit" class="df-login-btn-lg">Logga in</button>
+
+            <div class="df-login-links">
+                <a asp-page="./ForgotPassword">Glömt lösenord?</a>
+                <a asp-page="./Register">Skapa konto</a>
+            </div>
+        </form>
+    </div>
+</div>

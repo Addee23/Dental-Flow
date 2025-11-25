@@ -1,5 +1,7 @@
 ﻿using DentalFlow.Models;
 using Microsoft.AspNetCore.Identity;
+using DentalFlow.Models.Auth;
+
 
 namespace DentalFlow.Data.Seed
 {

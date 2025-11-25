@@ -1,0 +1,31 @@
+﻿@model DentalFlow.Models.Booking
+@{
+    Layout = "/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Detaljer för bokning</h2>
+
+<div class="card p-3 mb-3">
+    <dl class="row mb-0">
+        <dt class="col-sm-3">Datum & tid</dt>
+        <dd class="col-sm-9">@Model.DateTime.ToString("yyyy-MM-dd HH:mm")</dd>
+
+        <dt class="col-sm-3">Namn</dt>
+        <dd class="col-sm-9">@Model.Name</dd>
+
+        <dt class="col-sm-3">E-post</dt>
+        <dd class="col-sm-9">@Model.Email</dd>
+
+        <dt class="col-sm-3">Telefon</dt>
+        <dd class="col-sm-9">@Model.Phone</dd>
+
+        <dt class="col-sm-3">Behandling</dt>
+        <dd class="col-sm-9">@Model.Service?.Name</dd>
+
+        <dt class="col-sm-3">Skapad</dt>
+        <dd class="col-sm-9">@Model.CreatedAt</dd>
+    </dl>
+</div>
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Redigera</a>
+<a asp-action="Index" class="btn btn-secondary">Tillbaka</a>

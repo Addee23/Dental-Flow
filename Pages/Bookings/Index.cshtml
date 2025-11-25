@@ -1,6 +1,4 @@
 ﻿@page
-<h1 style="color:red">TEST FILEN LADDAR</h1>
-
 @model DentalFlow.Pages.Bookings.IndexModel
 @{
     Layout = "_DentalFlowLayout";
@@ -17,8 +15,7 @@
            type="date"
            value="@Model.SelectedDate.ToString("yyyy-MM-dd")"
            class="form-control"
-           onchange="window.location='@Url.Page("/Bookings/Index", new { ServiceId = Model.ServiceId })&selectedDate=' + this.value;"
- />
+           onchange="window.location='@Url.Page("/Bookings/Index", new { ServiceId = Model.ServiceId })&selectedDate=' + this.value;" />
 
     <h2 class="df-title-2 mt-4">Välj tid</h2>
 
@@ -27,14 +24,15 @@
         <div class="df-time-grid">
             @foreach (var time in Model.AvailableTimes)
             {
-             
-<a class="df-card-time"
+                <a class="df-card-time"
    href="@Url.Page("/Bookings/Review", new {
-       ServiceId = Model.ServiceId,
-       UnixTicks = time.Ticks
+        ServiceId = Model.ServiceId,
+        DateTimeString = time.ToString("yyyy-MM-ddTHH:mm")
    })">
     @time.ToString("HH:mm")
 </a>
+
+
 
 
             }
@@ -78,9 +76,9 @@
         transition: 0.2s;
     }
 
-    .df-card-time:hover {
-        background: #007bff;
-        color: white;
-        border-color: #007bff;
-    }
+        .df-card-time:hover {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
 </style>

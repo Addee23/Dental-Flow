@@ -1,0 +1,90 @@
+﻿@page "{id:int}"
+@model DentalFlow.Pages.Bookings.ConfirmationSimpleModel
+
+@{
+    Layout = "_DentalFlowLayout";
+    ViewData["Title"] = "Bokningen är bekräftad";
+}
+
+<div class="confirm-container">
+    <div class="confirm-box">
+
+        <h2 class="confirm-title">
+            <i class="fa-solid fa-circle-check"></i> Bokningen är bekräftad!
+        </h2>
+
+        <p class="confirm-sub">Tack för din bokning! Här är en sammanfattning av dina uppgifter.</p>
+
+        <h3 class="section-title">Behandling</h3>
+        <div class="info-row"><span>Namn:</span> <strong>@Model.Booking.Service.Name</strong></div>
+        <div class="info-row"><span>Datum:</span> <strong>@Model.Booking.DateTime.ToString("yyyy-MM-dd")</strong></div>
+        <div class="info-row"><span>Tid:</span> <strong>@Model.Booking.DateTime.ToString("HH:mm")</strong></div>
+        <div class="info-row"><span>Pris:</span> <strong>@Model.Booking.Service.Price kr</strong></div>
+
+        <h3 class="section-title">Dina uppgifter</h3>
+        <div class="info-row"><span>Namn:</span> <strong>@Model.Booking.Name</strong></div>
+        <div class="info-row"><span>Email:</span> <strong>@Model.Booking.Email</strong></div>
+        <div class="info-row"><span>Telefon:</span> <strong>@Model.Booking.Phone</strong></div>
+
+        <p class="footer-text">
+            Vi hör av oss om något skulle ändras. Välkommen till oss!
+        </p>
+
+    </div>
+</div>
+
+<style>
+    .confirm-container {
+        display: flex;
+        justify-content: center;
+        padding: 40px 0 60px;
+    }
+
+    .confirm-box {
+        width: 520px;
+        background: #fff;
+        padding: 28px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .confirm-title {
+        font-size: 24px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+        color: #2c7a2c;
+    }
+
+    .confirm-sub {
+        margin-bottom: 20px;
+        color: #555;
+    }
+
+    .section-title {
+        font-size: 18px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        color: #444;
+        font-weight: bold;
+    }
+
+    .info-row {
+        margin-bottom: 8px;
+        font-size: 16px;
+    }
+
+        .info-row span {
+            display: inline-block;
+            width: 120px;
+            color: #666;
+        }
+
+    .footer-text {
+        margin-top: 20px;
+        color: #777;
+        font-size: 14px;
+    }
+</style>

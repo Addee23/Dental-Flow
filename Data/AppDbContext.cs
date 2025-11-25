@@ -1,4 +1,5 @@
 ﻿using DentalFlow.Models;
+using DentalFlow.Models.Auth;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,9 +9,17 @@ namespace DentalFlow.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<Service> Services => Set<Service>();
+        public DbSet<Service> Services { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
 
-        public DbSet<Booking> Bookings => Set<Booking>();
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
+            // ⭐ GÖR UserId FRIVILLIG (NULLABLE) ⭐
+            modelBuilder.Entity<Booking>()
+                .Property(b => b.UserId)
+                .IsRequired(false);
+        }
     }
 }

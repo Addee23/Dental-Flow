@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("DentalFlow")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+98fc85a733b9f2823ae6916e2fb6bf563a76871a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+25c9cbd5f4b5c93e43768e32e533957cff86cba8")]
 [assembly: System.Reflection.AssemblyProductAttribute("DentalFlow")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DentalFlow")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

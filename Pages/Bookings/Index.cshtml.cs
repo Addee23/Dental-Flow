@@ -40,10 +40,12 @@ namespace DentalFlow.Pages.Bookings
                 .Select(b => b.DateTime)
                 .ToListAsync();
 
-            // generera tider 08:00–16:00
             AvailableTimes = Enumerable.Range(8, 9)
-                .Select(h => new DateTime(SelectedDate.Year, SelectedDate.Month,
-                                          SelectedDate.Day, h, 0, 0))
+                .Select(h => new DateTime(
+                    SelectedDate.Year,
+                    SelectedDate.Month,
+                    SelectedDate.Day,
+                    h, 0, 0))
                 .Where(t => !booked.Contains(t))
                 .ToList();
         }

@@ -1,4 +1,5 @@
-﻿using DentalFlow.Models;
+﻿using DentalFlow.Data;        
+using DentalFlow.Models;
 
 namespace DentalFlow.Data.Seed
 {

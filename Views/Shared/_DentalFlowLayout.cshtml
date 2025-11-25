@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using DentalFlow.Models.Auth
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
 <html lang="sv" class="df-root">
 <head>
     <meta charset="utf-8" />
@@ -6,8 +11,6 @@
     <title>@ViewData["Title"] — DentalFlow</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  
-
 
     <style>
         :root {
@@ -71,8 +74,7 @@
             padding: 0 16px;
         }
 
-        /* --- Desktop layout --- */
-        .df-nav { /
+        .df-nav {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -125,7 +127,6 @@
             color: var(--text);
         }
 
-        /* Mobilmeny (stängd som default) */
         .df-mobile-menu {
             display: none;
             flex-direction: column;
@@ -152,186 +153,111 @@
             font-weight: 600;
         }
 
-        /* --- Breakpoint: mobil --- */
         @@media (max-width: 768px) {
             .df-nav-center {
                 display: none;
             }
-            /* göm desktoplänkar */
+
             .df-login-btn {
                 display: none;
             }
-            /* göm desktopknapp */
+
             .df-burger {
                 display: inline-flex;
             }
-            /* visa hamburgerknapp */
-        }
-
-        /* Dölj hamburger-ikon i desktop */
-        @@media (min-width: 768px) {
-            .df-burger
-
-        {
-            display: none !important;
-        }
-
         }
 
         @@media (min-width: 768px) {
-            #dfMobileMenu
-
-        {
-            display: none !important;
-        }
-
-        }
-
-        /* --- Desktop Navbar förbättringar --- */
-        @@media (min-width: 768px) {
-            header
-
-        {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 40px; /* mer luft på kanterna */
-        }
-
-        /* Sprid ut länkarna */
-        .df-nav-desktop {
-            display: flex;
-            gap: 28px; /* öka avstånd mellan nav-items */
-            align-items: center;
-        }
-
-            .df-nav-desktop a {
-                text-decoration: none;
-                font-weight: 500;
-                font-size: 15px;
-                color: var(--text);
-                transition: 0.2s ease;
+            .df-burger {
+                display: none !important;
             }
-
-                .df-nav-desktop a:hover {
-                    color: var(--blue-700);
-                }
-
-        /* Login-knapp lite snyggare */
-        .df-login-btn {
-            padding: 6px 16px;
-            border-radius: 6px;
-            background: var(--blue-700);
-            color: white !important;
-            font-weight: 600;
-            text-decoration: none;
-            transition: 0.2s ease;
         }
 
-            .df-login-btn:hover {
-                background: var(--blue-900);
+        @@media (min-width: 768px) {
+            #dfMobileMenu {
+                display: none !important;
             }
-
-        /* Dölj burger i desktop */
-        .df-burger {
-            display: none !important;
-        }
-
-        }
-
-        /* Lite snyggare navbar-länkar – safe mode */
-        @@media (min-width: 768px) {
-            .df-nav-center a
-
-        {
-            padding: 6px 10px;
-            border-radius: 6px;
-            font-size: 15px;
-            font-weight: 500;
-            color: var(--text);
-            text-decoration: none;
-            transition: 0.25s ease;
-        }
-
-        /* mjuk hover – lyfter länken lite, utan att förstöra */
-        .df-nav-center a:hover {
-            background: var(--blue-100);
-            color: var(--blue-800);
-        }
-
-        /* aktiv sida markerad */
-        .df-nav-center a.active {
-            background: var(--blue-100);
-            color: var(--blue-800);
-            font-weight: 600;
-        }
-
-        }
-
-        /* === Premium Desktop Nav Style Upgrade === */
-        @@media (min-width: 768px) {
-            .df-nav-center a
-
-        {
-            font-weight: 600; /* fetare */
-            font-size: 16px;
-            letter-spacing: 0.2px;
-            padding: 8px 14px;
-            border-radius: 8px;
-            transition: 0.25s ease;
-            color: var(--text);
-        }
-
-        /* mjuk subtil underline + hover background */
-        .df-nav-center a:hover {
-            background: rgba(0, 96, 255, 0.08);
-            color: var(--blue-800);
-            box-shadow: 0 2px 0 var(--blue-700);
-        }
-
-        /* aktiv sida */
-        .df-nav-center a.active {
-            background: rgba(0, 96, 255, 0.12);
-            color: var(--blue-800);
-            font-weight: 700;
-            box-shadow: 0 2px 0 var(--blue-800);
-        }
-
         }
     </style>
 
     @RenderSection("Styles", required: false)
 </head>
+
 <body>
     <header class="df-nav">
         <a class="df-logo" asp-page="/Index">
             <img src="/images/dentalflow-logo-blue.svg" alt="DentalFlow">
         </a>
 
+        <!-- DESKTOP NAV -->
         <nav class="df-nav-center">
             <a asp-page="/Index" class="df-link">Hem</a>
             <a asp-page="/Services/Index" class="df-link">Behandlingar</a>
             <a asp-page="/Booking/SelectDate" class="df-link">Boka tid</a>
             <a asp-page="/Contact" class="df-link">Kontakt</a>
+
+            @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+            {
+                <a href="/Admin" class="df-link" style="color:var(--blue-700); font-weight:700;">
+                    Adminpanel
+                </a>
+            }
         </nav>
 
         <div class="df-actions">
-            <a asp-page="/Login" class="df-login-btn">Logga in</a>
+
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <a href="/Identity/Account/Manage" class="df-login-btn">Mitt konto</a>
+
+                <form method="post" asp-area="Identity" asp-page="/Account/Logout" id="logoutForm" style="display:inline;">
+                    <button type="submit"
+                            class="df-login-btn"
+                            style="background:var(--blue-800);">
+                        Logga ut
+                    </button>
+                </form>
+            }
+            else
+            {
+                <a asp-area="Identity" asp-page="/Account/Login" class="df-login-btn">Logga in</a>
+            }
+
             <button id="dfBurger" class="df-burger" aria-label="Öppna meny">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>
     </header>
 
-    <!-- Mobilmeny som fälls ut under headern -->
+    <!-- MOBILE NAV -->
     <nav id="dfMobileMenu" class="df-mobile-menu">
         <a asp-page="/Index" class="df-mobile-link">Hem</a>
         <a asp-page="/Services/Index" class="df-mobile-link">Behandlingar</a>
         <a asp-page="/Booking/SelectDate" class="df-mobile-link">Boka tid</a>
         <a asp-page="/Contact" class="df-mobile-link">Kontakt</a>
-        <a asp-page="/Login" class="df-mobile-login">Logga in</a>
-    </nav>
 
+        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+        {
+            <a href="/Admin" class="df-mobile-link" style="font-weight:700;">
+                Adminpanel
+            </a>
+        }
+
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <a href="/Identity/Account/Manage" class="df-mobile-login">Mitt konto</a>
+
+            <form method="post" asp-area="Identity" asp-page="/Account/Logout" id="logoutFormMobile" style="margin-top:6px;">
+                <button type="submit" class="df-mobile-login" style="background:var(--blue-800);">
+                    Logga ut
+                </button>
+            </form>
+        }
+        else
+        {
+            <a asp-area="Identity" asp-page="/Account/Login" class="df-mobile-login">Logga in</a>
+        }
+    </nav>
 
     <main class="container">
         @RenderBody()
@@ -344,8 +270,8 @@
         const mobile = document.getElementById('dfMobileMenu');
 
         burger?.addEventListener('click', () => {
-          const open = mobile.style.display === 'flex';
-          mobile.style.display = open ? 'none' : 'flex';
+            const open = mobile.style.display === 'flex';
+            mobile.style.display = open ? 'none' : 'flex';
         });
     </script>
 
