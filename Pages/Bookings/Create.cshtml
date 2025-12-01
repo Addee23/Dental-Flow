@@ -1,6 +1,54 @@
 ﻿@page "{serviceId:int}"
 @model DentalFlow.Pages.Bookings.CreateModel
 
+@{
+    ViewData["Title"] = "Boka tid";
+}
+
 <h2>Boka tid</h2>
 
-<p>Du bokar behandling med ID: @Model.ServiceId</p>
+<div class="mb-4">
+    <h4>@Model.Service.Name</h4>
+    <p>@Model.Service.Name</p>   <!-- SÄKER ersättning -->
+</div>
+
+
+<form method="post" class="mt-4">
+
+    <!-- Datum och tid -->
+    <div class="mb-3">
+        <label for="DateTime" class="form-label">Välj datum och tid</label>
+        <input asp-for="Booking.DateTime" type="datetime-local" class="form-control" />
+        <span asp-validation-for="Booking.DateTime" class="text-danger"></span>
+    </div>
+
+    <!-- Namn -->
+    <div class="mb-3">
+        <label for="Name" class="form-label">Ditt namn</label>
+        <input asp-for="Booking.Name" class="form-control" />
+        <span asp-validation-for="Booking.Name" class="text-danger"></span>
+    </div>
+
+    <!-- Email -->
+    <div class="mb-3">
+        <label for="Email" class="form-label">Din e-post</label>
+        <input asp-for="Booking.Email" type="email" class="form-control" />
+        <span asp-validation-for="Booking.Email" class="text-danger"></span>
+    </div>
+
+    <!-- Telefon -->
+    <div class="mb-3">
+        <label for="Phone" class="form-label">Telefonnummer (valfritt)</label>
+        <input asp-for="Booking.Phone" class="form-control" />
+        <span asp-validation-for="Booking.Phone" class="text-danger"></span>
+    </div>
+
+    <!-- Dold input för ServiceId -->
+    <input type="hidden" asp-for="Booking.ServiceId" />
+
+    <button type="submit" class="btn btn-primary">Bekräfta bokning</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

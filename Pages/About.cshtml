@@ -1,0 +1,89 @@
+﻿@page
+@model AboutModel
+@{
+    ViewData["Title"] = "Om oss";
+    Layout = "_DentalFlowLayout";
+}
+
+<style>
+    .about-wrapper {
+        max-width: 900px;
+        margin: 40px auto;
+        background: var(--paper);
+        border: 1px solid var(--border);
+        padding: 40px;
+        border-radius: 18px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    }
+
+    .about-title {
+        font-size: 34px;
+        font-weight: 700;
+        color: var(--blue-900);
+        text-align: center;
+        margin-bottom: 16px;
+    }
+
+    .about-subtitle {
+        text-align: center;
+        color: var(--muted);
+        font-size: 17px;
+        margin-bottom: 30px;
+    }
+
+    .about-section {
+        margin-bottom: 30px;
+    }
+
+        .about-section h3 {
+            color: var(--blue-900);
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .about-section p {
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            font-size: 16px;
+        }
+
+    .about-img {
+        width: 100%;
+        border-radius: 16px;
+        margin: 25px 0;
+    }
+</style>
+
+<div class="about-wrapper">
+
+    <h1 class="about-title">Om DentalFlow</h1>
+    <p class="about-subtitle">Modern tandvård – trygg, enkel och digital.</p>
+
+    <img src="/images/klinik.jpg" class="about-img" />
+
+    <div class="about-section">
+        <h3>Vår vision</h3>
+        <p>
+            DentalFlow är utvecklat för att göra tandvårdsbokning modern, smidig och tillgänglig.
+            Vi kombinerar teknik med trygghet för både patienter och kliniker.
+        </p>
+    </div>
+
+    <div class="about-section">
+        <h3>Vad vi erbjuder</h3>
+        <p>
+            Ett enkelt bokningsflöde, moderna funktioner och tydlig översikt över tider,
+            behandlingar och patientinformation.
+        </p>
+    </div>
+
+    <div class="about-section">
+        <h3>För dig som patient</h3>
+        <p>
+            Boka tider snabbt, hantera dina besök och håll koll på din tandvård – på ett ställe.
+        </p>
+    </div>
+
+</div>

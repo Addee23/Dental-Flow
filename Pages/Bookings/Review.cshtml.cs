@@ -1,12 +1,15 @@
 ﻿using DentalFlow.Data;
 using DentalFlow.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DentalFlow.Pages.Bookings
 {
+    [Authorize(Roles = "Customer")]
     public class ReviewModel : PageModel
     {
         private readonly AppDbContext _context;

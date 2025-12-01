@@ -2,6 +2,7 @@ wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\images\dentalflow-logo-blue.svg
 wwwroot\images\dentist.jpg
+wwwroot\images\klinik.jpg
 wwwroot\images\whiteteeth.jpg
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css

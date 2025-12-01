@@ -294,3 +294,5 @@ C:\Users\adiii\source\repos\C#Repetition\DentalFlow\DentalFlow\obj\Debug\net8.0\
 C:\Users\adiii\source\repos\C#Repetition\DentalFlow\DentalFlow\obj\Debug\net8.0\DentalFlow.pdb
 C:\Users\adiii\source\repos\C#Repetition\DentalFlow\DentalFlow\obj\Debug\net8.0\DentalFlow.genruntimeconfig.cache
 C:\Users\adiii\source\repos\C#Repetition\DentalFlow\DentalFlow\obj\Debug\net8.0\ref\DentalFlow.dll
+C:\Users\adiii\source\repos\C#Repetition\DentalFlow\DentalFlow\bin\Debug\net8.0\Castle.Core.dll
+C:\Users\adiii\source\repos\C#Repetition\DentalFlow\DentalFlow\bin\Debug\net8.0\Moq.dll

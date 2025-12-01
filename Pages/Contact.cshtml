@@ -1,0 +1,93 @@
+﻿@page
+@model ContactModel
+@{
+    ViewData["Title"] = "Kontakt";
+    Layout = "_DentalFlowLayout";
+}
+
+<style>
+    .contact-wrapper {
+        max-width: 850px;
+        margin: 40px auto;
+        background: var(--paper);
+        border: 1px solid var(--border);
+        padding: 40px;
+        border-radius: 18px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    }
+
+    .contact-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--blue-900);
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .contact-text {
+        text-align: center;
+        font-size: 16px;
+        color: var(--muted);
+        margin-bottom: 30px;
+    }
+
+    .contact-info {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+    }
+
+    .contact-card {
+        background: var(--page);
+        padding: 20px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        text-align: center;
+    }
+
+        .contact-card i {
+            font-size: 32px;
+            color: var(--blue-700);
+            margin-bottom: 8px;
+        }
+
+        .contact-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--blue-900);
+            margin-bottom: 6px;
+        }
+
+        .contact-card p {
+            color: var(--muted);
+        }
+</style>
+
+<div class="contact-wrapper">
+    <h1 class="contact-title">Kontakta oss</h1>
+    <p class="contact-text">
+        Har du frågor? Hör av dig – vi hjälper dig gärna!
+    </p>
+
+    <div class="contact-info">
+
+        <div class="contact-card">
+            <i class="fa-solid fa-envelope"></i>
+            <h4>E-post</h4>
+            <p>info@dentalflow.se</p>
+        </div>
+
+        <div class="contact-card">
+            <i class="fa-solid fa-phone"></i>
+            <h4>Telefon</h4>
+            <p>08-123 456 78</p>
+        </div>
+
+        <div class="contact-card">
+            <i class="fa-solid fa-location-dot"></i>
+            <h4>Adress</h4>
+            <p>Storgatan 12, Stockholm</p>
+        </div>
+
+    </div>
+</div>

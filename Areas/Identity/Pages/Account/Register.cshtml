@@ -1,64 +1,178 @@
 ﻿@page
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Skapa konto";
 }
 
-<h1>@ViewData["Title"]</h1>
+<style>
+    /* === Wrapper === */
+    .df-register-wrapper {
+        min-height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+        background: var(--page);
+    }
 
-<div class="row">
-    <div class="col-md-4">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label asp-for="Input.Email">Email</label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.Password">Password</label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-        </form>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
+    /* === Card === */
+    .df-register-card {
+        width: 100%;
+        max-width: 460px;
+        background: var(--paper);
+        padding: 40px 32px;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        box-shadow: 0 6px 22px rgba(0,0,0,0.06);
+        animation: fadeIn 0.3s ease;
+    }
+
+    /* === Titles === */
+    .df-register-title {
+        text-align: center;
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--blue-800);
+        margin-bottom: 8px;
+    }
+
+    .df-register-subtitle {
+        text-align: center;
+        font-size: 15px;
+        color: var(--muted);
+        margin-bottom: 26px;
+    }
+
+    /* === Form Groups === */
+    .df-form-group {
+        margin-bottom: 18px;
+    }
+
+    label {
+        font-weight: 600;
+        color: var(--text);
+        display: block;
+        margin-bottom: 6px;
+    }
+
+    .df-input {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--page);
+        font-size: 15px;
+        transition: 0.2s;
+    }
+
+        .df-input:focus {
+            outline: none;
+            border-color: var(--blue-600);
+            box-shadow: 0 0 0 2px rgba(74,144,255,0.25);
+            background: white;
+        }
+
+    .df-error {
+        font-size: 12px;
+        color: #d9534f;
+    }
+
+    /* === Button === */
+    .df-register-btn {
+        width: 100%;
+        padding: 12px 16px;
+        background: var(--blue-700);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 8px;
+        transition: 0.2s ease;
+    }
+
+        .df-register-btn:hover {
+            background: var(--blue-800);
+        }
+
+    /* === Links === */
+    .df-register-links {
+        text-align: center;
+        margin-top: 18px;
+    }
+
+        .df-register-links a {
+            text-decoration: none;
+            color: var(--blue-700);
+            font-weight: 600;
+        }
+
+            .df-register-links a:hover {
+                text-decoration: underline;
             }
-        </section>
+
+    /* Animation */
+    @@keyframes fadeIn {
+        0%
+
+    {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+</style>
+
+<div class="df-register-wrapper">
+    <div class="df-register-card">
+        <h1 class="df-register-title">Skapa konto</h1>
+        <p class="df-register-subtitle">Fyll i dina uppgifter för att fortsätta</p>
+
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="df-form-group">
+                <label asp-for="Input.FirstName"></label>
+                <input asp-for="Input.FirstName" class="df-input" />
+                <span asp-validation-for="Input.FirstName" class="df-error"></span>
+            </div>
+
+            <div class="df-form-group">
+                <label asp-for="Input.LastName"></label>
+                <input asp-for="Input.LastName" class="df-input" />
+                <span asp-validation-for="Input.LastName" class="df-error"></span>
+            </div>
+
+            <div class="df-form-group">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="df-input" />
+                <span asp-validation-for="Input.Email" class="df-error"></span>
+            </div>
+
+            <div class="df-form-group">
+                <label asp-for="Input.Password"></label>
+                <input asp-for="Input.Password" class="df-input" />
+                <span asp-validation-for="Input.Password" class="df-error"></span>
+            </div>
+
+            <div class="df-form-group">
+                <label asp-for="Input.ConfirmPassword"></label>
+                <input asp-for="Input.ConfirmPassword" class="df-input" />
+                <span asp-validation-for="Input.ConfirmPassword" class="df-error"></span>
+            </div>
+
+            <button type="submit" class="df-register-btn">Skapa konto</button>
+
+            <div class="df-register-links">
+                <a asp-page="./Login">Har du redan ett konto?</a>
+            </div>
+        </form>
     </div>
 </div>
 

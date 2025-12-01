@@ -3,36 +3,117 @@
     Layout = "/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
+<!-- CSS för responsivt cards-läge på små skärmar -->
+<style>
+    /* Döljer tabellen på mobil */
+    @@media (max-width: 768px) {
+        .desktop-table
+
+    {
+        display: none !important;
+    }
+
+    }
+
+    /* Döljer cards på desktop */
+    @@media (min-width: 769px) {
+        .mobile-cards
+
+    {
+        display: none !important;
+    }
+
+    }
+
+    /* Card styling */
+    .booking-card {
+        background: #fff;
+        padding: 16px;
+        border-radius: 8px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        margin-bottom: 16px;
+    }
+
+        .booking-card strong {
+            display: inline-block;
+            width: 120px;
+        }
+
+        .booking-card .btn {
+            width: 100%;
+        }
+</style>
+
 <h1 class="mb-3">Bokningar</h1>
 
 <a asp-action="Create" class="btn btn-primary mb-3">Skapa ny bokning</a>
 
-<table class="table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>Namn</th>
-            <th>E-post</th>
-            <th>Telefon</th>
-            <th>Datum & tid</th>
-            <th>Behandling</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<!-- DESKTOP TABLE -->
+<div class="table-responsive desktop-table">
+    <table class="table table-striped table-bordered align-middle">
+        <thead class="table-dark">
             <tr>
-                <td>@item.Name</td>
-                <td>@item.Email</td>
-                <td>@item.Phone</td>
-                <td>@item.DateTime.ToString("yyyy-MM-dd HH:mm")</td>
-                <td>@item.Service?.Name</td>
-                <td>
-                    <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.Id">Redigera</a>
-                    <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.Id">Detaljer</a>
-                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">Ta bort</a>
-                </td>
+                <th>Namn</th>
+                <th>E-post</th>
+                <th>Telefon</th>
+                <th>Datum & tid</th>
+                <th>Behandling</th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Email</td>
+                    <td>@item.Phone</td>
+                    <td>@item.DateTime.ToString("yyyy-MM-dd HH:mm")</td>
+                    <td>@item.Service?.Name</td>
+                    <td>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.Id">Redigera</a>
+                            <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.Id">Detaljer</a>
+                            <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">Ta bort</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- MOBILE CARDS -->
+<div class="mobile-cards">
+    @foreach (var item in Model)
+    {
+        <div class="booking-card">
+            <p><strong>Namn:</strong> @item.Name</p>
+            <p><strong>E-post:</strong> @item.Email</p>
+            <p><strong>Telefon:</strong> @item.Phone</p>
+            <p><strong>Datum:</strong> @item.DateTime.ToString("yyyy-MM-dd HH:mm")</p>
+            <p><strong>Behandling:</strong> @item.Service?.Name</p>
+
+            <div class="mt-3 d-flex flex-column gap-2">
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Redigera</a>
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Detaljer</a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Ta bort</a>
+            </div>
+        </div>
+    }
+</div>
+
+<a href="/Admin"
+   style="
+        display:inline-flex;
+        align-items:center;
+        gap:6px;
+        text-decoration:none;
+        font-weight:600;
+        color:var(--blue-700);
+        margin-bottom:16px;
+        cursor:pointer;">
+    <i class="fa-solid fa-arrow-left"></i>
+    Tillbaka till adminpanelen
+</a>

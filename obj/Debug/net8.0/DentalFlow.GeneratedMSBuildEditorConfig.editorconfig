@@ -224,6 +224,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/adiii/source/repos/C\#Repetition/DentalFlow/DentalFlow/Pages/About.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWJvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/adiii/source/repos/C\#Repetition/DentalFlow/DentalFlow/Pages/Bookings/ConfirmationSimple.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQm9va2luZ3NcQ29uZmlybWF0aW9uU2ltcGxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -240,8 +244,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQm9va2luZ3NcUmV2aWV3LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/adiii/source/repos/C\#Repetition/DentalFlow/DentalFlow/Pages/Contact.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29udGFjdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/adiii/source/repos/C\#Repetition/DentalFlow/DentalFlow/Pages/Services/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VydmljZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/adiii/source/repos/C\#Repetition/DentalFlow/DentalFlow/Views/Customer/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/adiii/source/repos/C\#Repetition/DentalFlow/DentalFlow/Views/Customer/MinaBokningar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcTWluYUJva25pbmdhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/adiii/source/repos/C\#Repetition/DentalFlow/DentalFlow/Views/Home/Index.cshtml]
@@ -254,6 +270,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/adiii/source/repos/C\#Repetition/DentalFlow/DentalFlow/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/adiii/source/repos/C\#Repetition/DentalFlow/DentalFlow/Views/Shared/_CustomerLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9DdXN0b21lckxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/adiii/source/repos/C\#Repetition/DentalFlow/DentalFlow/Views/Shared/_DentalFlowLayout.cshtml]

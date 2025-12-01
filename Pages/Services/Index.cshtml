@@ -136,26 +136,7 @@
 
     /* Mobile adjustments */
     @@media (max-width: 768px) {
-        .df-subtext {
-            text-align: left !important;
-            max-width: 280px;
-            margin-left: 0 !important;
-            margin-right: auto !important;
-            margin-bottom: 18px;
-            line-height: 1.35;
-            display: block;
-            font-size: 14px;
-        }
-
-            .df-subtext::before {
-                content: "";
-                display: block;
-                width: 32px;
-                height: 2px;
-                background: var(--blue-700);
-                margin-bottom: 8px;
-                border-radius: 2px;
-            }
+        
 
         .df-sub::before {
             content: none !important; /* No line on mobile */
@@ -166,6 +147,18 @@
             text-align: center;
             margin-top: 2px;
         }
+
+        .df-subtext {
+            text-align: center !important;
+            max-width: 100% !important;
+            margin: 0 auto 18px auto !important;
+            font-size: 14px;
+            line-height: 1.35;
+        }
+
+            .df-subtext::before {
+                content: none !important;
+            }
     }
 </style>
 

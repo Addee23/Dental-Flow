@@ -1,29 +1,266 @@
 ﻿@page
-@model IndexModel
+@model DentalFlow.Areas.Identity.Pages.Account.Manage.IndexModel
 @{
-    ViewData["Title"] = "Profile";
+    ViewData["Title"] = "Min profil";
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
-<h3>@ViewData["Title"]</h3>
-<partial name="_StatusMessage" for="StatusMessage" />
-<div class="row">
-    <div class="col-md-6">
-        <form id="profile-form" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Username" class="form-control" placeholder="Please choose your username." disabled />
-                <label asp-for="Username" class="form-label"></label>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number."/>
-                <label asp-for="Input.PhoneNumber" class="form-label"></label>
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-            </div>
-            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
-        </form>
+<style>
+    .df-input {
+        width: 90%;
+        max-width: 650px;
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--page);
+        font-size: 15px;
+        transition: 0.2s;
+    }
+
+        .df-input:focus {
+            outline: none;
+            border-color: var(--blue-600);
+            box-shadow: 0 0 0 2px rgba(74, 144, 255, 0.25);
+            background: white;
+        }
+
+    .df-btn-save {
+        width: 100%;
+        padding: 12px;
+        background: var(--blue-700);
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+        .df-btn-save:hover {
+            background: var(--blue-800);
+        }
+
+    .df-label {
+        font-weight: 600;
+        margin-bottom: 4px;
+        display: block;
+        color: var(--text);
+    }
+</style>
+
+<div class="container" style="max-width:900px;">
+
+    <h2 class="mb-4" style="font-weight:700; color:var(--blue-900);">
+        <i class="fa-solid fa-user" style="margin-right:8px;"></i>
+        Min profil
+    </h2>
+
+    @if (!string.IsNullOrEmpty(Model.StatusMessage))
+    {
+        <div style="
+            background:#e8f5e9;
+            border:1px solid #c5e1a5;
+            padding:14px;
+            border-radius:10px;
+            color:#33691e;
+            font-weight:600;
+            margin-bottom:20px;
+            animation: fadeIn 0.4s ease;">
+            ✔ @Model.StatusMessage
+        </div>
+
+        <style>
+            @@keyframes fadeIn {
+                0%
+
+            {
+                opacity: 0;
+                transform: translateY(-6px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            }
+        </style>
+    }
+
+
+    <partial name="_StatusMessage" for="StatusMessage" />
+
+    <div class="card shadow-sm mb-5"
+         style="border:1px solid var(--border); background:var(--paper); border-radius:14px;">
+
+        <div class="card-body p-4" style="padding-left: 16px;">
+
+
+            <h4 class="mb-3" style="color:var(--blue-800); font-weight:600;">
+                <i class="fa-solid fa-id-card" style="margin-right:6px;"></i>
+                Profiluppgifter
+            </h4>
+
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Input.FirstName" class="df-label"></label>
+                    <input asp-for="Input.FirstName" class="df-input" />
+                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Input.LastName" class="df-label"></label>
+                    <input asp-for="Input.LastName" class="df-input" />
+                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Input.Email" class="df-label"></label>
+                    <input asp-for="Input.Email" class="df-input" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Input.PhoneNumber" class="df-label"></label>
+                    <input asp-for="Input.PhoneNumber" class="df-input" />
+                    <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div style="width:90%; max-width:650px;">
+                <button class="df-btn-save" type="submit" style="margin-top: 12px;">
+                    <i class="fa-solid fa-floppy-disk" style="margin-right:6px;"></i>
+                    Spara ändringar
+                </button>
+                </div>
+            </form>
+
+        </div>
     </div>
-</div>
+
+    <!-- RADERA KONTO -->
+    <div class="card shadow-sm mb-5"
+         style="border:1px solid #f1b1b1; border-radius:14px; background:var(--paper);">
+
+        <div class="card-body p-4" style="padding-left: 16px;">
+
+            <h4 class="mb-3" style="color:#b32020; font-weight:600;">
+                <i class="fa-solid fa-triangle-exclamation" style="margin-right:6px;"></i>
+                Radera konto
+            </h4>
+
+            <p class="mb-4" style="color:var(--muted);">
+                Detta tar bort ditt konto permanent och kan <strong>inte ångras</strong>.
+            </p>
+
+            <div style="width:90%; max-width:650px;">
+            <button type="button"
+                    onclick="openDeletePopup()"
+                    style="background:#c62828;
+                       border:0;
+                       padding:12px;
+                       border-radius:10px;
+                       font-weight:600;
+                       color:white;
+                       width:100%;
+                       cursor:pointer;">
+                <i class="fa-solid fa-trash" style="margin-right:6px;"></i>
+                Radera konto
+            </button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- POPUP MODAL OVERLAY -->
+    <div id="deletePopup" style="
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.45);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;">
+
+        <div style="
+        background: var(--paper);
+        padding: 28px;
+        border-radius: 14px;
+        width: 90%;
+        max-width: 380px;
+        text-align: center;
+        border: 1px solid var(--border);
+        box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+        animation: fadeIn 0.25s ease;">
+
+            <h4 style="color:#b32020; font-weight:700; margin-bottom:10px;">
+                Är du säker?
+            </h4>
+
+            <p style="color:var(--muted); margin-bottom:20px;">
+                Detta kommer att <strong>radera ditt konto permanent</strong>.
+                Detta kan <u>inte</u> ångras.
+            </p>
+
+            <form method="post" asp-page-handler="DeleteAccount">
+                <button type="submit"
+                        style="background:#c62828; color:white; padding:10px 18px; border-radius:8px;
+                           font-weight:600; border:0; cursor:pointer; width:100%; margin-bottom:10px;">
+                    Ja, radera mitt konto
+                </button>
+            </form>
+
+            <button onclick="closeDeletePopup()"
+                    style="background:#e0e0e0; color:#333; padding:10px 18px; border-radius:8px;
+                       font-weight:600; border:0; cursor:pointer; width:100%;">
+                Nej, avbryt
+            </button>
+        </div>
+    </div>
+
+    <a asp-area="" asp-controller="Customer" asp-action="Index"
+       style="display:block;
+          margin-top:10px;
+          align-items:center;
+          gap:6px;
+          text-decoration:none;
+          font-weight:600;
+          color:#1e1e2d;
+          cursor:pointer;">
+
+        <i class="fa-solid fa-arrow-left"></i>
+        Tillbaka till mina sidor
+    </a>
+
+    <script>
+        function openDeletePopup() {
+            document.getElementById("deletePopup").style.display = "flex";
+        }
+        function closeDeletePopup() {
+            document.getElementById("deletePopup").style.display = "none";
+        }
+    </script>
+
+    <style>
+        @@keyframes fadeIn {
+            0%
+
+        {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        }
+    </style>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

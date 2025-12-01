@@ -20,7 +20,9 @@ namespace DentalFlow.Data.Seed
                     UserName = email,
                     Email = email,
                     EmailConfirmed = true,
-                    FullName = "System Admin"
+                    FirstName = "Admin",
+                    LastName = "Adminsson"
+
                 };
                 await userManager.CreateAsync(user, password);
             }

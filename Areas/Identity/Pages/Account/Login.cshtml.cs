@@ -96,7 +96,8 @@ namespace DentalFlow.Areas.Identity.Pages.Account
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
-                ModelState.AddModelError(string.Empty, ErrorMessage);
+                ModelState.AddModelError(string.Empty, "Email eller lösenord är fel.");
+
             }
 
             returnUrl ??= Url.Content("~/");
@@ -131,6 +132,11 @@ namespace DentalFlow.Areas.Identity.Pages.Account
                     if (await _userManager.IsInRoleAsync(user, "Admin"))
                     {
                         return Redirect("/Admin"); // Skicka admin till adminpanelen
+                    }
+
+                    if (await _userManager.IsInRoleAsync(user, "Customer"))
+                    {
+                        return Redirect("/Customer"); // Skicka kunder till Mina sidor
                     }
 
                     // Vanlig redirect för andra användare

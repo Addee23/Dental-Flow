@@ -8,175 +8,260 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>@ViewData["Title"] — DentalFlow</title>
 
+    <!-- Font Awesome för ikoner -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
-        :root {
-            --blue-900: #073b78;
-            --blue-800: #0d4fa6;
-            --blue-700: #1A74E4;
-            --blue-400: #4FB4FF;
-            --blue-100: #eef5ff;
-            --paper: #fff;
-            --text: #083b78;
-            --muted: #3c6fab;
-            --border: #d7e7ff;
-            --page: #f3f8ff;
-        }
-
-        .dark {
-            --blue-900: #cfe3ff;
-            --blue-800: #bdd6ff;
-            --blue-700: #70a8ff;
-            --blue-100: #0f1f38;
-            --paper: #0d1a31;
-            --text: #eaf1ff;
-            --muted: #9ab7e7;
-            --border: #2c4167;
-            --page: #071225;
+        /* ============================================
+                   GLOBALT
+                ============================================ */
+        * {
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
             margin: 0;
+            padding: 0;
+            width: 100%;
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
             background: var(--page);
             color: var(--text);
         }
 
-        header {
+        .df-root {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        /* ============================================
+                   FÄRG-TEMA
+                ============================================ */
+        :root {
+            --blue-900: #073b78;
+            --blue-800: #0d4fa6;
+            --blue-700: #1A74E4;
+            --blue-600: #2d82f4;
+            --blue-500: #4fa3ff;
+            --paper: #ffffff;
+            --page: #f3f8ff;
+            --text: #073b78;
+            --muted: #4f6f98;
+            --border: #d7e7ff;
+        }
+
+        /* ============================================
+                   HEADER / NAV
+                ============================================ */
+        header.df-nav {
             background: var(--paper);
             border-bottom: 1px solid var(--border);
-            padding: 14px 22px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-            header img {
-                height: 26px;
-            }
-
-        .df-logo-text {
-            font-weight: 700;
-            font-size: 18px;
-            color: var(--blue-800);
-        }
-
-        main {
-            padding: 32px 0;
-        }
-
-        .container {
-            max-width: 720px;
-            margin: auto;
-            padding: 0 16px;
-        }
-
-        .df-nav {
+            padding: 14px 18px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 16px;
-        }
-
-        .df-logo img {
-            height: 26px;
-        }
-
-        .df-nav-center {
-            display: flex;
-            gap: 24px;
         }
 
         .df-link {
-            text-decoration: none;
+            color: var(--blue-900);
             font-weight: 600;
-            color: var(--text);
+            text-decoration: none;
+            transition: 0.2s;
         }
 
             .df-link:hover {
                 color: var(--blue-700);
             }
 
-        .df-actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
         .df-login-btn {
-            background: var(--blue-700);
-            color: #fff;
-            padding: 8px 14px;
+            background: var(--blue-700) !important;
+            color: #fff !important;
+            padding: 8px 16px;
             border-radius: 8px;
-            text-decoration: none;
             font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.2s;
         }
 
             .df-login-btn:hover {
-                background: var(--blue-800);
+                background: var(--blue-800) !important;
             }
 
         .df-burger {
             display: none;
             background: none;
-            border: 0;
-            font-size: 22px;
+            border: none;
             color: var(--text);
+            font-size: 24px;
         }
 
+        .df-nav-center {
+            display: flex;
+            gap: 22px;
+        }
+
+        /* ============================================
+                   MOBILMENY
+                ============================================ */
         .df-mobile-menu {
             display: none;
             flex-direction: column;
-            gap: 10px;
+            gap: 14px;
             background: var(--paper);
             border-bottom: 1px solid var(--border);
-            padding: 12px 22px;
+            padding: 16px 20px;
         }
 
         .df-mobile-link {
-            text-decoration: none;
-            font-weight: 600;
             color: var(--text);
+            font-weight: 600;
+            text-decoration: none;
         }
 
         .df-mobile-login {
-            margin-top: 6px;
             background: var(--blue-700);
             color: #fff;
-            text-align: center;
             padding: 8px 12px;
             border-radius: 8px;
-            text-decoration: none;
+            text-align: center;
             font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* ============================================
+                   MAIN
+                ============================================ */
+        main.container {
+            max-width: 720px;
+            margin: auto;
+            padding: 0 16px;
+            width: 100%;
+        }
+
+        /* ============================================
+                   FOOTER
+                ============================================ */
+        .df-footer {
+            background: var(--paper);
+            border-top: 1px solid var(--border);
+            padding: 50px 22px 20px;
+            margin-top: 60px;
+        }
+
+        .df-footer-content {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+        }
+
+        .df-footer-col h4 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            color: var(--blue-800);
+        }
+
+        .df-footer-col a,
+        .df-footer-col p {
+            margin: 6px 0;
+            color: var(--muted);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+            .df-footer-col a:hover {
+                color: var(--blue-800);
+                text-decoration: underline;
+            }
+
+        .df-footer-logo {
+            height: 36px;
+            margin-bottom: 12px;
+        }
+
+        .df-footer-bottom {
+            text-align: center;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+            padding-top: 18px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* ============================================
+                   SOCIALA MEDIER
+                ============================================ */
+        .df-social {
+            display: flex;
+            gap: 14px;
+            margin-top: 12px;
+        }
+
+            .df-social a {
+                width: 38px;
+                height: 38px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                background: var(--blue-700);
+                color: #fff;
+                text-decoration: none;
+                font-size: 18px;
+                transition: 0.25s ease;
+            }
+
+                .df-social a:hover {
+                    background: var(--blue-800);
+                    transform: translateY(-3px);
+                }
+
+        @@media (max-width: 768px) {
+            .df-social
+
+        {
+            justify-content: center;
+        }
+
+        }
+
+        /* ============================================
+                   RESPONSIV NAV
+                ============================================ */
+        @@media (max-width: 900px) {
+            .df-nav-center
+
+        {
+            display: none !important;
+        }
+
+        .df-login-btn {
+            display: none !important;
+        }
+
+        .df-burger {
+            display: inline-flex !important;
+        }
+
         }
 
         @@media (max-width: 768px) {
-            .df-nav-center {
-                display: none;
-            }
+            .df-footer-content
 
-            .df-login-btn {
-                display: none;
-            }
-
-            .df-burger {
-                display: inline-flex;
-            }
+        {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            text-align: center !important;
+            gap: 32px !important;
         }
 
-        @@media (min-width: 768px) {
-            .df-burger {
-                display: none !important;
-            }
-        }
-
-        @@media (min-width: 768px) {
-            #dfMobileMenu {
-                display: none !important;
-            }
         }
     </style>
 
@@ -184,38 +269,43 @@
 </head>
 
 <body>
+
+    <!-- HEADER -->
     <header class="df-nav">
         <a class="df-logo" asp-page="/Index">
             <img src="/images/dentalflow-logo-blue.svg" alt="DentalFlow">
         </a>
 
-        <!-- DESKTOP NAV -->
         <nav class="df-nav-center">
-            <a asp-page="/Index" class="df-link">Hem</a>
+            <a href="/" class="df-link">Hem</a>
             <a asp-page="/Services/Index" class="df-link">Behandlingar</a>
-            <a asp-page="/Booking/SelectDate" class="df-link">Boka tid</a>
+
+            @if (SignInManager.IsSignedIn(User) && User.IsInRole("Customer"))
+            {
+                <a asp-page="/Booking/Index" class="df-link">Boka tid</a>
+            }
+
+            <a asp-page="/About" class="df-link">Om oss</a>
             <a asp-page="/Contact" class="df-link">Kontakt</a>
+
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <a asp-controller="Customer" asp-action="Index" class="df-link">Mina sidor</a>
+            }
 
             @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
             {
-                <a href="/Admin" class="df-link" style="color:var(--blue-700); font-weight:700;">
-                    Adminpanel
-                </a>
+                <a href="/Admin" class="df-link" style="color:var(--blue-700); font-weight:700;">Adminpanel</a>
             }
         </nav>
 
-        <div class="df-actions">
-
+        <div>
             @if (SignInManager.IsSignedIn(User))
             {
                 <a href="/Identity/Account/Manage" class="df-login-btn">Mitt konto</a>
 
-                <form method="post" asp-area="Identity" asp-page="/Account/Logout" id="logoutForm" style="display:inline;">
-                    <button type="submit"
-                            class="df-login-btn"
-                            style="background:var(--blue-800);">
-                        Logga ut
-                    </button>
+                <form method="post" asp-area="Identity" asp-page="/Account/Logout" style="display:inline;">
+                    <button type="submit" class="df-login-btn" style="background:var(--blue-800);">Logga ut</button>
                 </form>
             }
             else
@@ -223,34 +313,41 @@
                 <a asp-area="Identity" asp-page="/Account/Login" class="df-login-btn">Logga in</a>
             }
 
-            <button id="dfBurger" class="df-burger" aria-label="Öppna meny">
+            <button id="dfBurger" class="df-burger">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>
     </header>
 
-    <!-- MOBILE NAV -->
+    <!-- MOBILMENY -->
     <nav id="dfMobileMenu" class="df-mobile-menu">
         <a asp-page="/Index" class="df-mobile-link">Hem</a>
         <a asp-page="/Services/Index" class="df-mobile-link">Behandlingar</a>
-        <a asp-page="/Booking/SelectDate" class="df-mobile-link">Boka tid</a>
+
+        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Customer"))
+        {
+            <a asp-page="/Booking/Index" class="df-mobile-link">Boka tid</a>
+        }
+
+        <a asp-page="/About" class="df-mobile-link">Om oss</a>
         <a asp-page="/Contact" class="df-mobile-link">Kontakt</a>
+
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <a asp-controller="Customer" asp-action="Index" class="df-mobile-link">Mina sidor</a>
+        }
 
         @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
         {
-            <a href="/Admin" class="df-mobile-link" style="font-weight:700;">
-                Adminpanel
-            </a>
+            <a href="/Admin" class="df-mobile-link">Adminpanel</a>
         }
 
         @if (SignInManager.IsSignedIn(User))
         {
-            <a href="/Identity/Account/Manage" class="df-mobile-login">Mitt konto</a>
+            <a asp-area="Identity" asp-page="/Account/Manage" class="df-mobile-login">Mitt konto</a>
 
-            <form method="post" asp-area="Identity" asp-page="/Account/Logout" id="logoutFormMobile" style="margin-top:6px;">
-                <button type="submit" class="df-mobile-login" style="background:var(--blue-800);">
-                    Logga ut
-                </button>
+            <form method="post" asp-area="Identity" asp-page="/Account/Logout">
+                <button type="submit" class="df-mobile-login" style="background:var(--blue-800);">Logga ut</button>
             </form>
         }
         else
@@ -259,19 +356,62 @@
         }
     </nav>
 
+    <!-- MAIN CONTENT -->
     <main class="container">
         @RenderBody()
     </main>
+
+    <!-- FOOTER -->
+    <footer class="df-footer">
+
+        <div class="df-footer-content">
+
+            <div class="df-footer-col logo-col">
+                <img src="/images/dentalflow-logo-blue.svg" class="df-footer-logo" />
+                <p>Enkelt, tryggt och modernt bokningssystem för tandvård.</p>
+            </div>
+
+            <div class="df-footer-col">
+                <h4>Länkar</h4>
+                <a asp-page="/Index">Hem</a>
+                <a asp-page="/Services/Index">Behandlingar</a>
+                <a asp-page="/About">Om oss</a>
+                <a asp-page="/Contact">Kontakt</a>
+                <a asp-area="Identity" asp-page="/Account/Login">Logga in</a>
+            </div>
+
+            <div class="df-footer-col">
+                <h4>Kontakt</h4>
+                <p>E-post: info@dentalflow.se</p>
+                <p>Telefon: 08-123 456 78</p>
+            </div>
+
+            <!-- SOCIALA MEDIER -->
+            <div class="df-footer-col">
+                <h4>Följ oss</h4>
+                <div class="df-social">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="df-footer-bottom">
+            © @DateTime.Now.Year DentalFlow — Alla rättigheter förbehållna
+        </div>
+
+    </footer>
 
     @RenderSection("Scripts", required: false)
 
     <script>
         const burger = document.getElementById('dfBurger');
         const mobile = document.getElementById('dfMobileMenu');
-
         burger?.addEventListener('click', () => {
-            const open = mobile.style.display === 'flex';
-            mobile.style.display = open ? 'none' : 'flex';
+            mobile.style.display = mobile.style.display === 'flex' ? 'none' : 'flex';
         });
     </script>
 

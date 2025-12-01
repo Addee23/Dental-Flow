@@ -1,8 +1,158 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using Microsoft.AspNetCore.Identity
+@using DentalFlow.Models.Auth
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "Välkommen till DentalFlow";
+    Layout = "_DentalFlowLayout";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    /* ===================================================== */
+    /*                     WRAPPER                           */
+    /* ===================================================== */
+    .home-wrapper {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 60px 20px;
+        text-align: center;
+    }
+
+    /* ===================================================== */
+    /*                    TITEL + SUB                        */
+    /* ===================================================== */
+    .home-title {
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--blue-900);
+    }
+
+    .home-sub {
+        font-size: 18px;
+        color: #666;
+        margin-bottom: 30px;
+    }
+
+    /* ===================================================== */
+    /*                   HERO IMAGE                          */
+    /* ===================================================== */
+    .home-image-placeholder {
+        width: 100%;
+        max-width: 650px;
+        margin: 0 auto 30px auto;
+        background: #e7eefb;
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .home-hero-img {
+        width: 100%;
+        height: auto;
+        border-radius: 15px;
+    }
+
+    /* ===================================================== */
+    /*                       BUTTONS                         */
+    /* ===================================================== */
+    .home-buttons {
+        width: 100%;
+        max-width: 360px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .df-btn {
+        width: 100%;
+        padding: 14px;
+        font-size: 17px;
+        font-weight: 600;
+        background: #2563eb !important;
+        color: #fff !important;
+        border-radius: 12px;
+        text-align: center;
+    }
+
+    /* ===================================================== */
+    /*                    RESPONSIVE                         */
+    /* ===================================================== */
+
+    /* Tablets */
+    @@media (max-width: 768px) {
+        .home-wrapper
+
+    {
+        padding: 40px 16px;
+    }
+
+    .home-title {
+        font-size: 30px;
+    }
+
+    .home-sub {
+        font-size: 16px;
+    }
+
+    .home-buttons {
+        max-width: 320px;
+    }
+
+    }
+
+    /* Smartphones */
+    @@media (max-width: 480px) {
+        .home-wrapper
+
+    {
+        padding: 30px 12px;
+    }
+
+    .home-title {
+        font-size: 26px;
+    }
+
+    .home-buttons {
+        max-width: 100%;
+        padding: 0 8px;
+    }
+
+    .df-btn {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    }
+
+    /* Smallest devices */
+    @@media (max-width: 360px) {
+        .home-title
+
+    {
+        font-size: 22px;
+    }
+
+    .df-btn {
+        font-size: 14px;
+    }
+
+    }
+</style>
+
+<div class="home-wrapper">
+    <h1 class="home-title">Välkommen till DentalFlow</h1>
+    <p class="home-sub">Trygg tandvård – enkelt att boka, enkelt att använda.</p>
+
+    <div class="home-image-placeholder">
+        <img src="/images/klinik.jpg" alt="DentalFlow Hero" class="home-hero-img">
+    </div>
+
+    <div class="home-buttons">
+        <a href="/Services" class="df-btn">Boka tid</a>
+        <a href="/Identity/Account/Register" class="df-btn">Skapa konto</a>
+        <a href="/Identity/Account/Login" class="df-btn">Logga in</a>
+    </div>
 </div>

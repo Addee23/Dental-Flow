@@ -1,0 +1,258 @@
+﻿@model IEnumerable<DentalFlow.Models.Booking>
+
+@{
+    Layout = "_DentalFlowLayout";
+    ViewData["Title"] = "Mina bokningar";
+}
+
+<div style="margin-bottom: 24px;">
+    <h1 style="color: var(--blue-800);">Mina bokningar</h1>
+    <p style="color: var(--muted);">Här ser du dina kommande och tidigare bokningar.</p>
+</div>
+
+@if (!Model.Any())
+{
+    <div style="
+            background: var(--paper);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+            color: var(--text);
+            font-weight: 500;">
+
+        Du har inga bokningar ännu.
+        <br /><br />
+
+        <a href="/Services/Index"
+           class="df-login-btn"
+           style="text-decoration:none; padding:10px 18px; display:inline-block;">
+            Boka tid
+        </a>
+    </div>
+}
+
+else
+{
+    <table class="df-table">
+        <thead>
+            <tr>
+                <th>Behandling</th>
+                <th>Datum</th>
+                <th>Tid</th>
+                <th>Bokad</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var booking in Model)
+            {
+                <tr>
+                    <td>@booking.Service?.Name</td>
+                    <td>@booking.DateTime.ToString("yyyy-MM-dd")</td>
+                    <td>@booking.DateTime.ToString("HH:mm")</td>
+                    <td>@booking.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                    <td style="text-align:right;">
+                        <button class="df-danger" onclick="confirmCancel(@booking.Id)">
+                            Avboka
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<!-- Modal -->
+<div id="cancelModal" class="modal">
+    <div class="modal-content">
+        <h3 style="margin-top:0;">Är du säker?</h3>
+        <p>Vill du avboka denna tid?</p>
+
+        <div class="modal-actions">
+            <button class="df-secondary" onclick="closeModal()">Stäng</button>
+            <a id="cancelLink" class="df-danger" href="#">Avboka</a>
+        </div>
+    </div>
+</div>
+
+<a asp-area="" asp-controller="Customer" asp-action="Index"
+   style="display:block;
+          margin-top:10px;
+          align-items:center;
+          gap:6px;
+          text-decoration:none;
+          font-weight:600;
+          color:#1e1e2d;
+          cursor:pointer;">
+
+    <i class="fa-solid fa-arrow-left"></i>
+    Tillbaka till mina sidor
+</a>
+
+@section Styles {
+    <style>
+        .df-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--paper);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 16px;
+        }
+
+            .df-table th {
+                background: var(--blue-700);
+                color: white;
+                padding: 12px;
+                text-align: left;
+                font-weight: 600;
+            }
+
+            .df-table td {
+                padding: 12px;
+                border-bottom: 1px solid var(--border);
+            }
+
+        .df-danger {
+            background: #d9534f;
+            color: white !important;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+            .df-danger:hover {
+                background: #c9302c;
+            }
+
+        .df-secondary {
+            background: var(--border);
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            color: var(--text);
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: var(--paper);
+            padding: 22px;
+            border-radius: 12px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        /* ===== MOBIL  STÄLL OM TABELLEN TILL KORT ===== */
+        @@media (max-width: 600px) {
+            .df-table, .df-table thead, .df-table tbody, .df-table th, .df-table td, .df-table tr
+
+        {
+            display: block !important;
+            width: 100% !important;
+        }
+
+        /* Dölj headern */
+        .df-table thead {
+            display: none !important;
+        }
+
+        /* Varje rad blir ett kort */
+        .df-table tr {
+            margin-bottom: 14px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--paper);
+        }
+
+        /* Varje cell blir egen rad med label */
+        .df-table td {
+            padding: 8px 4px !important;
+            position: relative;
+            text-align: left !important;
+            font-size: 14px;
+            border-bottom: none !important;
+        }
+
+            /* Lägg till rubrik före varje cell */
+            .df-table td:nth-child(1)::before {
+                content: "Behandling: ";
+                font-weight: 600;
+                color: var(--blue-800);
+            }
+
+            .df-table td:nth-child(2)::before {
+                content: "Datum: ";
+                font-weight: 600;
+                color: var(--blue-800);
+            }
+
+            .df-table td:nth-child(3)::before {
+                content: "Tid: ";
+                font-weight: 600;
+                color: var(--blue-800);
+            }
+
+            .df-table td:nth-child(4)::before {
+                content: "Bokad: ";
+                font-weight: 600;
+                color: var(--blue-800);
+            }
+
+            /* Avboka-knappen center */
+            .df-table td:nth-child(5) {
+                text-align: center !important;
+                margin-top: 10px;
+            }
+
+                .df-table td:nth-child(5)::before {
+                    content: "";
+                }
+
+        .df-danger {
+            width: 100%;
+            display: block;
+        }
+
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        function confirmCancel(id) {
+            const modal = document.getElementById("cancelModal");
+            const link = document.getElementById("cancelLink");
+
+            link.href = "/Customer/CancelBooking/" + id;
+            modal.style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("cancelModal").style.display = "none";
+        }
+    </script>
+}

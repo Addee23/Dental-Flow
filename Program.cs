@@ -1,4 +1,4 @@
-﻿using DentalFlow.Data;
+using DentalFlow.Data;
 using DentalFlow.Models.Auth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -92,5 +92,16 @@ using (var scope = app.Services.CreateScope())
     await RoleSeeder.SeedRolesAsync(roleManager);
     await AdminSeeder.SeedAdminAsync(userManager);
 }
+
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    if (!await roleManager.RoleExistsAsync("Customer"))
+    {
+        await roleManager.CreateAsync(new IdentityRole("Customer"));
+    }
+}
+
 
 app.Run();
