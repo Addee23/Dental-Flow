@@ -1,5 +1,6 @@
 DentalFlow  
-DentalFlow är ett modernt webbaserat bokningssystem för tandläkarkliniker, utvecklat som examensarbete inom Webbutveckling (WEBD24). Systemet är byggt för att ge en smidig upplevelse för både kunder och administratörer och visar fullstack-kompetens inom ASP.NET Core, databaser, autentisering och UI-design.
+
+DentalFlow är ett modernt webbaserat bokningssystem för tandläkarkliniker, utvecklat som examensarbete inom Webbutveckling (WEBD24). Systemet är byggt för att ge en smidig upplevelse för både kunder och administratörer och visar fullstack-kompetens inom ASP.NET Core, databaser, autentisering och UI-design. Huvudfokus i projektet har varit att implementera ett stabilt och korrekt fungerande bokningsflöde. Designen är samtidigt responsiv och genomtänkt för att ge ett tydligt och lättnavigerat användargränssnitt.
 
 Funktioner:
 
@@ -80,7 +81,3 @@ DentalFlow utvecklades för att visa kunskap i fullstack-utveckling genom att sk
 - Responsiv UI-design
 - Planering och spårning via Jira
 
-
-
-## ✨ Tack för att du besöker projektet!
-DentalFlow är utvecklat med fokus på kvalitet, struktur och tydlighet – perfekt för portfölj och framtida arbetsgivare.
