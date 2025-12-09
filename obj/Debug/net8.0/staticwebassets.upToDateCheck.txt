@@ -2,8 +2,15 @@ wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\images\dentalflow-logo-blue.svg
 wwwroot\images\dentist.jpg
+wwwroot\images\hero1.jpg
+wwwroot\images\Hero2.png
+wwwroot\images\HeroHome.jpg
 wwwroot\images\klinik.jpg
-wwwroot\images\whiteteeth.jpg
+wwwroot\images\reception.jpg
+wwwroot\images\tandlakare1.jpg
+wwwroot\images\tandlakare2.jpg
+wwwroot\images\tandlakare8.jpg
+wwwroot\images\test1.jpg
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map

@@ -6,6 +6,7 @@
 }
 
 <style>
+
     .about-wrapper {
         max-width: 900px;
         margin: 40px auto;
@@ -53,37 +54,271 @@
         width: 100%;
         border-radius: 16px;
         margin: 25px 0;
+        object-fit: cover;
     }
+
+    /* TEAM */
+    .team-section {
+        margin-top: 40px;
+    }
+
+    .team-title {
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--blue-900);
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 25px;
+    }
+
+    .team-card {
+        background: var(--paper);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+        transition: transform .2s ease;
+    }
+
+        .team-card:hover {
+            transform: translateY(-4px);
+        }
+
+    .team-photo {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 12px;
+        margin-bottom: 15px;
+    }
+
+    .team-name {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--blue-900);
+        margin-bottom: 6px;
+    }
+
+    .team-role {
+        font-size: 15px;
+        color: var(--muted);
+        margin-bottom: 10px;
+    }
+
+    .team-text {
+        font-size: 14px;
+        color: var(--text);
+        line-height: 1.5;
+    }
+
+    /* ===========================================================
+                        RESPONSIVITET – TABLETS (≤ 900px)
+           =========================================================== */
+
+    @@media (max-width: 900px) {
+
+        .about-wrapper {
+            margin: 20px;
+            padding: 30px;
+        }
+
+        .about-title {
+            font-size: 30px;
+        }
+
+        .about-subtitle {
+            font-size: 16px;
+        }
+    }
+
+    /* ===========================================================
+                        MOBIL LAYOUT (≤ 600px)
+           =========================================================== */
+
+    @@media (max-width: 600px) {
+
+        .about-wrapper {
+            padding: 22px;
+        }
+
+        .about-title {
+            font-size: 26px;
+        }
+
+        .about-subtitle {
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .about-section h3 {
+            font-size: 20px;
+        }
+
+        .about-section p {
+            font-size: 15px;
+        }
+
+        .team-grid {
+            grid-template-columns: 1fr !important;
+            gap: 20px;
+        }
+
+        .team-photo {
+            height: 200px;
+        }
+    }
+
+    /* ===========================================================
+                        SMÅ MOBILER (≤ 380px)
+           =========================================================== */
+
+    @@media (max-width: 380px) {
+
+        .about-wrapper {
+            padding: 18px;
+        }
+
+        .about-title {
+            font-size: 24px;
+        }
+
+        .about-subtitle {
+            font-size: 14px;
+        }
+
+        .team-title {
+            font-size: 22px;
+        }
+
+        .team-photo {
+            height: 180px;
+        }
+    }
+
+    /* ===========================================================
+                        ULTRA-SMÅ MOBILER (≤ 320px)
+           =========================================================== */
+
+    @@media (max-width: 320px) {
+
+        .about-wrapper {
+            padding: 14px;
+        }
+
+        .about-title {
+            font-size: 22px;
+        }
+
+        .about-section p {
+            font-size: 14px;
+        }
+
+        .team-photo {
+            height: 160px;
+        }
+
+        .team-name {
+            font-size: 16px;
+        }
+
+        .team-text {
+            font-size: 13px;
+        }
+    }
+
 </style>
+
 
 <div class="about-wrapper">
 
     <h1 class="about-title">Om DentalFlow</h1>
     <p class="about-subtitle">Modern tandvård – trygg, enkel och digital.</p>
 
-    <img src="/images/klinik.jpg" class="about-img" />
+    <img src="~/images/hero1.jpg" class="about-img" />
 
     <div class="about-section">
         <h3>Vår vision</h3>
         <p>
-            DentalFlow är utvecklat för att göra tandvårdsbokning modern, smidig och tillgänglig.
-            Vi kombinerar teknik med trygghet för både patienter och kliniker.
+            På DentalFlow strävar vi efter att skapa en tandvård där kvalitet, omtanke och modern teknik möts.
+            Vår vision är att erbjuda en trygg och positiv upplevelse för varje patient — från första kontakten
+            till avslutad behandling. Vi vill göra tandvård mer tillgänglig, modern och smidig, utan att tumma
+            på det personliga bemötandet.
         </p>
     </div>
 
     <div class="about-section">
         <h3>Vad vi erbjuder</h3>
         <p>
-            Ett enkelt bokningsflöde, moderna funktioner och tydlig översikt över tider,
-            behandlingar och patientinformation.
+            Vi erbjuder professionell tandvård utförd av erfarna tandläkare, tandhygienister och tandsköterskor.
+            Hos oss får du ett lugnt och tryggt bemötande, moderna behandlingar och en enkel bokningsupplevelse
+            där du snabbt kan hitta och hantera dina tider digitalt.
         </p>
     </div>
 
     <div class="about-section">
         <h3>För dig som patient</h3>
         <p>
-            Boka tider snabbt, hantera dina besök och håll koll på din tandvård – på ett ställe.
+            Som patient hos DentalFlow får du en smidig och tydlig upplevelse. Du kan enkelt boka tider online,
+            se dina kommande besök och få den hjälp du behöver inför din behandling. Vårt mål är att du alltid
+            ska känna dig väl omhändertagen – oavsett om det gäller ett rutinbesök eller mer avancerad tandvård.
         </p>
     </div>
 
+
+    <!-- TEAM -->
+    <div class="team-section">
+        <h3 class="team-title">Vårt team</h3>
+
+        <div class="team-grid">
+
+            <div class="team-card">
+                <img src="~/images/tandlakare1.jpg" class="team-photo" />
+                <div class="team-name">Anna Lindström</div>
+                <div class="team-role">Tandläkare</div>
+                <p class="team-text">
+                    Anna har över 12 års erfarenhet inom allmän tandvård och arbetar med stort fokus på trygghet,
+                    precision och modern behandlingsteknik.
+                </p>
+            </div>
+
+            <div class="team-card">
+                <img src="~/images/tandlakare8.jpg" class="team-photo" />
+                <div class="team-name">Johan Persson</div>
+                <div class="team-role">Tandhygienist</div>
+                <p class="team-text">
+                    Johan brinner för förebyggande tandvård och hjälper patienter med professionell rengöring,
+                    rådgivning och långsiktig munhälsa.
+                </p>
+            </div>
+
+            <div class="team-card">
+                <img src="~/images/test1.jpg" class="team-photo" />
+                <div class="team-name">Erik Holm</div>
+                <div class="team-role">Tandläkare</div>
+                <p class="team-text">
+                    Erik kombinerar noggrannhet med ett lugnt och tryggt bemötande för att skapa en positiv
+                    upplevelse för alla patienter — oavsett behov.
+                </p>
+            </div>
+
+            <div class="team-card">
+                <img src="~/images/reception.jpg" class="team-photo" />
+                <div class="team-name">Mikaela Andersson</div>
+                <div class="team-role">Receptionist</div>
+                <p class="team-text">
+                    Mikaela är oftast första kontakten på kliniken och hjälper patienter med bokningar, frågor
+                    och praktiska ärenden — alltid med ett varmt och välkomnande bemötande.
+                </p>
+            </div>
+
+        </div>
+    </div>
+
 </div>
+

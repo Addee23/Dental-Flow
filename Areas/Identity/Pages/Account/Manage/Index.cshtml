@@ -6,38 +6,34 @@
 }
 
 <style>
+
+    /* ===== FORM WRAPPER ===== */
+    .form-container {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    /* ===== INPUTS ===== */
     .df-input {
-        width: 90%;
-        max-width: 650px;
+        width: 92%;
+        max-width: 620px;
         padding: 12px 14px;
         border-radius: 10px;
         border: 1px solid var(--border);
         background: var(--page);
         font-size: 15px;
         transition: 0.2s;
+        display: block;
+        margin: 0 auto 14px; /* <-- MER MELLANRUM HÄR */
     }
+
 
         .df-input:focus {
             outline: none;
             border-color: var(--blue-600);
-            box-shadow: 0 0 0 2px rgba(74, 144, 255, 0.25);
+            box-shadow: 0 0 0 2px rgba(74,144,255,0.25);
             background: white;
-        }
-
-    .df-btn-save {
-        width: 100%;
-        padding: 12px;
-        background: var(--blue-700);
-        border: none;
-        border-radius: 10px;
-        color: white;
-        font-weight: 600;
-        cursor: pointer;
-        transition: 0.2s;
-    }
-
-        .df-btn-save:hover {
-            background: var(--blue-800);
         }
 
     .df-label {
@@ -45,12 +41,65 @@
         margin-bottom: 4px;
         display: block;
         color: var(--text);
+        width: 92%;
+        max-width: 620px;
+        margin-left: auto;
+        margin-right: auto;
     }
+
+   
+
+    /* ===== KNAPPAR ===== */
+    .df-btn {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.2s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        color: white;
+    }
+
+    .df-btn-blue {
+        background: var(--blue-700);
+    }
+
+        .df-btn-blue:hover {
+            background: var(--blue-800);
+        }
+
+    .df-btn-red {
+        background: #c62828;
+    }
+
+        .df-btn-red:hover {
+            background: #a71f1f;
+        }
+
+    /* Mellanrum efter sista input */
+    .last-input-margin {
+        margin-bottom: 22px !important;
+    }
+
+    /* Rubriker centrerade */
+    .section-heading {
+        text-align: center;
+        font-weight: 600;
+        margin-bottom: 18px;
+        color: var(--blue-800);
+    }
+
 </style>
 
-<div class="container" style="max-width:900px;">
+<div class="form-container">
 
-    <h2 class="mb-4" style="font-weight:700; color:var(--blue-900);">
+    <h2 class="mb-4" style="font-weight:700; color:var(--blue-900); text-align:center;">
         <i class="fa-solid fa-user" style="margin-right:8px;"></i>
         Min profil
     </h2>
@@ -58,50 +107,32 @@
     @if (!string.IsNullOrEmpty(Model.StatusMessage))
     {
         <div style="
-            background:#e8f5e9;
-            border:1px solid #c5e1a5;
-            padding:14px;
-            border-radius:10px;
-            color:#33691e;
-            font-weight:600;
-            margin-bottom:20px;
-            animation: fadeIn 0.4s ease;">
+                background:#e8f5e9;
+                border:1px solid #c5e1a5;
+                padding:14px;
+                border-radius:10px;
+                color:#33691e;
+                font-weight:600;
+                margin-bottom:20px;
+                text-align:center;
+                animation: fadeIn 0.4s ease;">
             ✔ @Model.StatusMessage
         </div>
-
-        <style>
-            @@keyframes fadeIn {
-                0%
-
-            {
-                opacity: 0;
-                transform: translateY(-6px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-            }
-        </style>
     }
 
-
-    <partial name="_StatusMessage" for="StatusMessage" />
-
+    <!-- ====== PROFILUPPGIFTER ====== -->
     <div class="card shadow-sm mb-5"
          style="border:1px solid var(--border); background:var(--paper); border-radius:14px;">
 
-        <div class="card-body p-4" style="padding-left: 16px;">
+        <div class="card-body p-4">
 
-
-            <h4 class="mb-3" style="color:var(--blue-800); font-weight:600;">
-                <i class="fa-solid fa-id-card" style="margin-right:6px;"></i>
+            <h4 class="section-heading">
+                <i class="fa-solid fa-id-card"></i>
                 Profiluppgifter
             </h4>
 
             <form method="post">
+
                 <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
                 <div class="mb-3">
@@ -122,83 +153,69 @@
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
 
-                <div class="mb-4">
+                <div class="mb-4 last-input-margin">
                     <label asp-for="Input.PhoneNumber" class="df-label"></label>
                     <input asp-for="Input.PhoneNumber" class="df-input" />
                     <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
                 </div>
 
-                <div style="width:90%; max-width:650px;">
-                <button class="df-btn-save" type="submit" style="margin-top: 12px;">
-                    <i class="fa-solid fa-floppy-disk" style="margin-right:6px;"></i>
+                <button class="df-btn df-btn-blue" type="submit">
+                    <i class="fa-solid fa-floppy-disk"></i>
                     Spara ändringar
                 </button>
-                </div>
+
             </form>
 
         </div>
     </div>
 
-    <!-- RADERA KONTO -->
+    <!-- ====== RADERA KONTO ====== -->
     <div class="card shadow-sm mb-5"
          style="border:1px solid #f1b1b1; border-radius:14px; background:var(--paper);">
 
-        <div class="card-body p-4" style="padding-left: 16px;">
+        <div class="card-body p-4">
 
-            <h4 class="mb-3" style="color:#b32020; font-weight:600;">
-                <i class="fa-solid fa-triangle-exclamation" style="margin-right:6px;"></i>
+            <h4 class="section-heading" style="color:#b32020;">
+                <i class="fa-solid fa-triangle-exclamation"></i>
                 Radera konto
             </h4>
 
-            <p class="mb-4" style="color:var(--muted);">
+            <p class="mb-4" style="color:var(--muted); text-align:center;">
                 Detta tar bort ditt konto permanent och kan <strong>inte ångras</strong>.
             </p>
 
-            <div style="width:90%; max-width:650px;">
-            <button type="button"
-                    onclick="openDeletePopup()"
-                    style="background:#c62828;
-                       border:0;
-                       padding:12px;
-                       border-radius:10px;
-                       font-weight:600;
-                       color:white;
-                       width:100%;
-                       cursor:pointer;">
-                <i class="fa-solid fa-trash" style="margin-right:6px;"></i>
+            <button class="df-btn df-btn-red"
+                    type="button"
+                    onclick="openDeletePopup()">
+                <i class="fa-solid fa-trash"></i>
                 Radera konto
             </button>
-            </div>
 
         </div>
     </div>
 
-
-    <!-- POPUP MODAL OVERLAY -->
+    <!-- ====== POPUP ====== -->
     <div id="deletePopup" style="
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.45);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;">
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.45);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;">
 
         <div style="
-        background: var(--paper);
-        padding: 28px;
-        border-radius: 14px;
-        width: 90%;
-        max-width: 380px;
-        text-align: center;
-        border: 1px solid var(--border);
-        box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-        animation: fadeIn 0.25s ease;">
+            background: var(--paper);
+            padding: 28px;
+            border-radius: 14px;
+            width: 90%;
+            max-width: 380px;
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.15);">
 
-            <h4 style="color:#b32020; font-weight:700; margin-bottom:10px;">
-                Är du säker?
-            </h4>
+            <h4 style="color:#b32020; font-weight:700; margin-bottom:10px;">Är du säker?</h4>
 
             <p style="color:var(--muted); margin-bottom:20px;">
                 Detta kommer att <strong>radera ditt konto permanent</strong>.
@@ -206,61 +223,36 @@
             </p>
 
             <form method="post" asp-page-handler="DeleteAccount">
-                <button type="submit"
-                        style="background:#c62828; color:white; padding:10px 18px; border-radius:8px;
-                           font-weight:600; border:0; cursor:pointer; width:100%; margin-bottom:10px;">
+                <button class="df-btn df-btn-red" type="submit">
                     Ja, radera mitt konto
                 </button>
             </form>
 
-            <button onclick="closeDeletePopup()"
-                    style="background:#e0e0e0; color:#333; padding:10px 18px; border-radius:8px;
-                       font-weight:600; border:0; cursor:pointer; width:100%;">
+            <button class="df-btn" onclick="closeDeletePopup()"
+                    style="margin-top:10px; background:#e0e0e0; color:#333;">
                 Nej, avbryt
             </button>
+
         </div>
     </div>
 
     <a asp-area="" asp-controller="Customer" asp-action="Index"
-       style="display:block;
-          margin-top:10px;
-          align-items:center;
-          gap:6px;
-          text-decoration:none;
-          font-weight:600;
-          color:#1e1e2d;
-          cursor:pointer;">
-
+       style="display:block; margin-top:20px; margin-bottom:40px; text-decoration:none;
+              font-weight:600; color:#1e1e2d; text-align:center;">
         <i class="fa-solid fa-arrow-left"></i>
         Tillbaka till mina sidor
     </a>
 
-    <script>
-        function openDeletePopup() {
-            document.getElementById("deletePopup").style.display = "flex";
-        }
-        function closeDeletePopup() {
-            document.getElementById("deletePopup").style.display = "none";
-        }
-    </script>
+</div>
 
-    <style>
-        @@keyframes fadeIn {
-            0%
-
-        {
-            opacity: 0;
-            transform: scale(0.95);
-        }
-
-        100% {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        }
-    </style>
-
+<script>
+    function openDeletePopup() {
+        document.getElementById("deletePopup").style.display = "flex";
+    }
+    function closeDeletePopup() {
+        document.getElementById("deletePopup").style.display = "none";
+    }
+</script>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

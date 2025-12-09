@@ -21,15 +21,37 @@ namespace DentalFlow.Areas.Admin.Controllers
         }
 
         // GET: Admin/Bookings
-        public async Task<IActionResult> Index()
+      
+        public async Task<IActionResult> Index(DateTime? date, int? month)
         {
-            var bookings = await _context.Bookings
+            var query = _context.Bookings
                 .Include(b => b.Service)
+                .AsQueryable();
+
+            // 🔹 Filtrering på specifikt datum
+            if (date.HasValue)
+            {
+                var selectedDate = date.Value.Date;
+                query = query.Where(b => b.DateTime.Date == selectedDate);
+            }
+
+            // 🔹 Filtrering på månad
+            if (month.HasValue && month.Value >= 1 && month.Value <= 12)
+            {
+                query = query.Where(b => b.DateTime.Month == month.Value);
+            }
+
+            var bookings = await query
                 .OrderByDescending(b => b.DateTime)
                 .ToListAsync();
 
+            ViewBag.SelectedDate = date?.ToString("yyyy-MM-dd");
+            ViewBag.SelectedMonth = month;
+
             return View(bookings);
         }
+
+
 
         // GET: Admin/Bookings/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -33,72 +33,9 @@
         --border: #2c4167;
     }
 
-    .df-card {
-        background: var(--paper);
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        padding: 18px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 14px;
-        transition: .2s;
-        cursor: pointer;
-    }
-
-        .df-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(0,0,0,.08);
-            background: var(--blue-100);
-        }
-
-    .df-info {
-        display: flex;
-        gap: 14px;
-        align-items: center;
-    }
-
-    .df-icon {
-        font-size: 26px;
-        color: var(--blue-700);
-    }
-
-    .df-name {
-        font-size: 18px;
-        font-weight: 700;
-        color: var(--text);
-    }
-
-    .df-meta {
-        font-size: 14px;
-        color: var(--muted);
-    }
-
-    .df-price-pill {
-        font-size: 12px;
-        padding: 4px 10px;
-        border-radius: 999px;
-        background: #fff;
-        border: 1px solid var(--border);
-        color: var(--blue-800);
-    }
-
-    .df-btn {
-        background: var(--blue-700);
-        color: #fff;
-        padding: 10px 14px;
-        border-radius: 10px;
-        text-decoration: none;
-        font-weight: 700;
-    }
-
-    .df-sub {
-        color: var(--muted);
-        font-size: 16px;
-        max-width: 520px;
-        margin-bottom: 18px;
-    }
-
+    /* ============================================
+                            HERO
+        ============================================ */
     .df-hero {
         margin-top: 20px;
         margin-bottom: 35px;
@@ -127,26 +64,97 @@
             box-shadow: 0 14px 38px rgba(0, 0, 0, .12);
         }
 
-    /* Desktop tagline center */
     .df-subtext {
         text-align: center;
         max-width: 520px;
         margin: 0 auto 18px auto;
     }
 
-    /* Mobile adjustments */
+    .df-sub {
+        color: var(--muted);
+        font-size: 16px;
+        max-width: 520px;
+        margin-bottom: 18px;
+    }
+
+    /* ============================================
+                            CARDS
+        ============================================ */
+
+    .df-card {
+        background: var(--paper);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 14px;
+        transition: .2s;
+        cursor: pointer;
+    }
+
+        .df-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0,0,0,.08);
+            background: var(--blue-100);
+        }
+
+    .df-info {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        flex-wrap: wrap;
+        min-width: 0;
+    }
+
+    .df-icon {
+        font-size: 26px;
+        color: var(--blue-700);
+        flex-shrink: 0;
+    }
+
+    .df-name {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text);
+    }
+
+    .df-meta {
+        font-size: 14px;
+        color: var(--muted);
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+
+    .df-price-pill {
+        font-size: 12px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: #fff;
+        border: 1px solid var(--border);
+        color: var(--blue-800);
+        white-space: nowrap;
+    }
+
+    .df-btn {
+        background: var(--blue-700);
+        color: #fff;
+        padding: 10px 14px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 700;
+        cursor: pointer;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    /* =========================================================================
+                            RESPONSIVITET (MOBIL)
+           ========================================================================= */
+
     @@media (max-width: 768px) {
-        
-
-        .df-sub::before {
-            content: none !important; /* No line on mobile */
-        }
-
-        .df-sub span {
-            display: block;
-            text-align: center;
-            margin-top: 2px;
-        }
 
         .df-subtext {
             text-align: center !important;
@@ -156,11 +164,100 @@
             line-height: 1.35;
         }
 
-            .df-subtext::before {
-                content: none !important;
-            }
+        .df-sub::before {
+            content: none !important;
+        }
+
+        .df-sub span {
+            display: block;
+            text-align: center;
+            margin-top: 2px;
+        }
     }
+
+    /* =========================================================================
+                            MOBILE — Cards stack vertically
+           ========================================================================= */
+
+    @@media (max-width: 650px) {
+
+        .df-card {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px;
+        }
+
+        .df-btn {
+            width: 100%;
+            text-align: center;
+            padding: 12px !important;
+            font-size: 16px;
+        }
+
+        .df-name {
+            font-size: 17px;
+        }
+
+        .df-icon {
+            font-size: 24px;
+        }
+
+        .df-hero-img {
+            max-width: 340px;
+        }
+    }
+
+    /* =========================================================================
+                            Ultra-small screens (≤ 360px)
+           ========================================================================= */
+
+    @@media (max-width: 360px) {
+
+        .df-card {
+            padding: 14px;
+        }
+
+        .df-btn {
+            font-size: 15px;
+            padding: 10px !important;
+        }
+
+        .df-name {
+            font-size: 16px;
+        }
+
+        .df-hero-img {
+            max-width: 280px !important;
+        }
+
+        .df-subtext {
+            font-size: 13px !important;
+        }
+    }
+
+    /* =========================================================================
+                            Extra tiny screens (≤ 300px)
+           ========================================================================= */
+
+    @@media (max-width: 300px) {
+
+        .df-btn {
+            font-size: 14px;
+            padding: 8px !important;
+        }
+
+        .df-card {
+            padding: 12px;
+        }
+
+        .df-icon {
+            font-size: 20px;
+        }
+    }
+
 </style>
+
 
 
 <div class="container py-5">

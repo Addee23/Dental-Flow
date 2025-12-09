@@ -8,57 +8,235 @@
 }
 
 <style>
+
     /* ===================================================== */
-    /*                     WRAPPER                           */
+    /*                  HERO CAROUSEL STYLING               */
     /* ===================================================== */
-    .home-wrapper {
+
+    .hero-out {
+        position: relative;
+        width: 100vw;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        overflow: hidden;
+    }
+
+    .hero-section {
         width: 100%;
+        height: 55vh;
+        min-height: 320px;
+        max-height: 600px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* ⭐ Slidern är osynlig tills sidan är helt laddad */
+    .hero-slider {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        position: absolute;
+        inset: 0;
+        transition: transform 1.5s ease-in-out, opacity .2s ease;
+       
+    }
+
+    .hero-slide {
+        width: 100vw;
+        height: 100%;
+        flex-shrink: 0;
+        position: relative;
+    }
+
+    .hero-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transform: scale(1.05);
+        animation: heroFadeIn 1.4s ease-out forwards;
+    }
+
+    /* ⭐ Gör första bilden helt synlig direkt */
+    .hero-slide:first-child .hero-img {
+        opacity: 1 !important;
+        transform: scale(1) !important;
+        animation: none !important;
+    }
+
+    @@keyframes heroFadeIn {
+        0% {
+            opacity: 0;
+            transform: scale(1.07);
+        }
+
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    /* Animated Gradient Overlay */
+    .hero-gradient {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at center, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.55) 100%);
+        animation: pulseGradient 6s ease-in-out infinite alternate;
+    }
+
+    @@keyframes pulseGradient {
+        from {
+            opacity: .6;
+        }
+
+        to {
+            opacity: .8;
+        }
+    }
+
+    /* ===================================================== */
+    /*           TEXT + TYPING ANIMATION                    */
+    /* ===================================================== */
+
+    .hero-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: white;
+        width: 100%;
+        max-width: 900px;
+        padding: 0 20px;
+        text-shadow: 0px 6px 20px rgba(0,0,0,1);
+        opacity: 0;
+        animation: overlayFade 1.6s ease forwards .4s;
+    }
+
+    @@keyframes overlayFade {
+        from {
+            opacity: 0;
+            transform: translate(-50%, -40%);
+        }
+
+        to {
+            opacity: 1;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    .hero-title {
+        font-size: 44px;
+        font-weight: 800;
+        margin-bottom: 10px;
+        letter-spacing: .5px;
+    }
+
+    .hero-sub {
+        font-size: 22px;
+        white-space: nowrap;
+        border-right: 3px solid white;
+        width: 0;
+        overflow: hidden;
+        animation: typing 3s steps(30) forwards, blink .7s infinite;
+        margin: 0 auto;
+    }
+
+    @@keyframes typing {
+        from {
+            width: 0
+        }
+
+        to {
+            width: 370px
+        }
+    }
+
+    @@keyframes blink {
+        0%, 50% {
+            border-color: white;
+        }
+
+        51%, 100% {
+            border-color: transparent;
+        }
+    }
+
+    /* ===================================================== */
+    /*          FLOATING MEDICAL ICONS                       */
+    /* ===================================================== */
+
+    .floating-icons {
+        position: absolute;
+        bottom: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+        pointer-events: none;
+    }
+
+    .floating-icon {
+        font-size: 36px;
+        color: #ffffffcc;
+        animation: float 4s ease-in-out infinite;
+    }
+
+        .floating-icon:nth-child(2) {
+            animation-delay: 1.2s;
+        }
+
+        .floating-icon:nth-child(3) {
+            animation-delay: 2.1s;
+        }
+
+    @@keyframes float {
+        0% {
+            transform: translateY(0);
+            opacity: .7;
+        }
+
+        50% {
+            transform: translateY(-18px);
+            opacity: 1;
+        }
+
+        100% {
+            transform: translateY(0);
+            opacity: .7;
+        }
+    }
+
+    /* ===================================================== */
+    /*                   HOMEPAGE BUTTONS                    */
+    /* ===================================================== */
+
+    .home-wrapper {
         max-width: 900px;
         margin: 0 auto;
         padding: 60px 20px;
         text-align: center;
+        opacity: 0;
+        animation: fadeContent 1.2s ease forwards 1.0s;
     }
 
-    /* ===================================================== */
-    /*                    TITEL + SUB                        */
-    /* ===================================================== */
-    .home-title {
-        font-size: 36px;
-        font-weight: 700;
-        margin-bottom: 10px;
-        color: var(--blue-900);
+    @@keyframes fadeContent {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
-    .home-sub {
-        font-size: 18px;
-        color: #666;
-        margin-bottom: 30px;
-    }
-
-    /* ===================================================== */
-    /*                   HERO IMAGE                          */
-    /* ===================================================== */
-    .home-image-placeholder {
-        width: 100%;
-        max-width: 650px;
-        margin: 0 auto 30px auto;
-        background: #e7eefb;
-        border-radius: 15px;
-        display: flex;
-        justify-content: center;
-    }
-
-    .home-hero-img {
-        width: 100%;
-        height: auto;
-        border-radius: 15px;
-    }
-
-    /* ===================================================== */
-    /*                       BUTTONS                         */
-    /* ===================================================== */
     .home-buttons {
-        width: 100%;
         max-width: 360px;
         margin: 0 auto;
         display: flex;
@@ -67,92 +245,134 @@
     }
 
     .df-btn {
-        width: 100%;
         padding: 14px;
-        font-size: 17px;
-        font-weight: 600;
-        background: #2563eb !important;
+        font-size: 18px;
+        font-weight: 700;
+        background: #3C7DE0 !important;
         color: #fff !important;
         border-radius: 12px;
-        text-align: center;
+        text-decoration: none !important;
+        transition: transform .15s;
     }
 
+        .df-btn:hover {
+            transform: translateY(-3px);
+        }
+
     /* ===================================================== */
-    /*                    RESPONSIVE                         */
+    /*                       RESPONSIVE                      */
     /* ===================================================== */
 
-    /* Tablets */
     @@media (max-width: 768px) {
-        .home-wrapper
+        .hero-title {
+            font-size: 32px;
+        }
 
-    {
-        padding: 40px 16px;
+        .hero-sub {
+            font-size: 16px;
+            width: auto;
+            animation: none;
+            border: none;
+        }
+
+        .floating-icons {
+            gap: 30px;
+        }
+
+        .floating-icon {
+            font-size: 28px;
+        }
     }
 
-    .home-title {
-        font-size: 30px;
-    }
-
-    .home-sub {
-        font-size: 16px;
-    }
-
-    .home-buttons {
-        max-width: 320px;
-    }
-
-    }
-
-    /* Smartphones */
     @@media (max-width: 480px) {
-        .home-wrapper
+        .hero-title {
+            font-size: 26px;
+        }
 
-    {
-        padding: 30px 12px;
+        .floating-icons {
+            display: none;
+        }
     }
 
-    .home-title {
-        font-size: 26px;
-    }
-
-    .home-buttons {
-        max-width: 100%;
-        padding: 0 8px;
-    }
-
-    .df-btn {
-        font-size: 16px;
-        padding: 12px;
-    }
-
-    }
-
-    /* Smallest devices */
-    @@media (max-width: 360px) {
-        .home-title
-
-    {
-        font-size: 22px;
-    }
-
-    .df-btn {
-        font-size: 14px;
-    }
-
-    }
 </style>
 
-<div class="home-wrapper">
-    <h1 class="home-title">Välkommen till DentalFlow</h1>
-    <p class="home-sub">Trygg tandvård – enkelt att boka, enkelt att använda.</p>
+<!-- ===================================================== -->
+<!--                      HERO SECTION                     -->
+<!-- ===================================================== -->
 
-    <div class="home-image-placeholder">
-        <img src="/images/klinik.jpg" alt="DentalFlow Hero" class="home-hero-img">
+<div class="hero-out">
+    <div class="hero-section">
+
+        <div class="hero-slider" id="heroSlider">
+
+            <div class="hero-slide">
+                <img src="~/images/HeroHome.jpg" class="hero-img" />
+                <div class="hero-gradient"></div>
+            </div>
+
+            <div class="hero-slide">
+                <img src="~/images/Hero2.png" class="hero-img" />
+                <div class="hero-gradient"></div>
+            </div>
+
+            <div class="hero-slide">
+                <img src="~/images/klinik.jpg" class="hero-img" />
+                <div class="hero-gradient"></div>
+            </div>
+
+        </div>
+
+        <div class="hero-overlay">
+            <h1 class="hero-title">Välkommen till DentalFlow</h1>
+            <p class="hero-sub">Modern och trygg tandvård – för alla.</p>
+        </div>
+
+        <div class="floating-icons">
+            <i class="fa-solid fa-tooth floating-icon"></i>
+            <i class="fa-solid fa-syringe floating-icon"></i>
+            <i class="fa-solid fa-heart-pulse floating-icon"></i>
+        </div>
+
     </div>
+</div>
 
+<!-- ===================================================== -->
+<!--                  KNAPPAR UNDER HERO                   -->
+<!-- ===================================================== -->
+
+<div class="home-wrapper">
     <div class="home-buttons">
         <a href="/Services" class="df-btn">Boka tid</a>
         <a href="/Identity/Account/Register" class="df-btn">Skapa konto</a>
         <a href="/Identity/Account/Login" class="df-btn">Logga in</a>
     </div>
 </div>
+
+<!-- ===================================================== -->
+<!--                    JAVASCRIPT                         -->
+<!-- ===================================================== -->
+
+<script>
+
+  
+
+    /* PARALLAX */
+    document.addEventListener("scroll", function () {
+        const slider = document.getElementById("heroSlider");
+        const scrollY = window.scrollY;
+        slider.style.transform = "translateY(" + scrollY * 0.20 + "px)";
+    });
+
+    /* AUTO SLIDE */
+    let index = 0;
+    const slider = document.getElementById("heroSlider");
+    const slides = document.querySelectorAll(".hero-slide");
+
+    function nextSlide() {
+        index = (index + 1) % slides.length;
+        slider.style.transform = `translateX(-${index * 100}vw)`;
+    }
+
+    setInterval(nextSlide, 6000);
+
+</script>

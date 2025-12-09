@@ -11,13 +11,15 @@
 
     <title>@ViewData["Title"] — DentalFlow</title>
 
-    <!-- Font Awesome för ikoner -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
+
         /* ============================================
-                   GLOBALT
-                ============================================ */
+                                 GLOBALT
+            ============================================ */
+
         * {
             box-sizing: border-box;
         }
@@ -32,18 +34,10 @@
             color: var(--text);
         }
 
-        .df-root {
-            width: 100%;
-            overflow-x: hidden;
-        }
-
-        /* ============================================
-                   FÄRG-TEMA
-                ============================================ */
         :root {
             --blue-900: #073b78;
             --blue-800: #0d4fa6;
-            --blue-700: #1A74E4;
+            --blue-700: #3C7DE0;
             --blue-600: #2d82f4;
             --blue-500: #4fa3ff;
             --paper: #ffffff;
@@ -54,149 +48,198 @@
         }
 
         /* ============================================
-                   HEADER / NAV
-                ============================================ */
+                                 NAVBAR
+            ============================================ */
+
         header.df-nav {
             background: var(--paper);
             border-bottom: 1px solid var(--border);
-            padding: 14px 18px;
+            padding: 12px 18px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: nowrap !important;
+            min-width: 0;
+        }
+
+        .df-logo img {
+            height: 40px;
+        }
+
+        @@media (max-width: 900px) {
+            .df-logo img {
+                height: 28px;
+            }
+        }
+
+        .df-nav-center {
+            display: flex;
+            gap: 22px;
+            align-items: center;
+            margin: 0 auto;
         }
 
         .df-link {
             color: var(--blue-900);
             font-weight: 600;
             text-decoration: none;
-            transition: 0.2s;
+            transition: 0.2s ease;
         }
 
             .df-link:hover {
                 color: var(--blue-700);
             }
 
+        /* ============================================
+                        LOGIN-ACTIONS & BURGER
+            ============================================ */
+
+        .df-login-actions {
+            display: flex;
+            align-items: center;
+            flex-wrap: nowrap !important;
+            gap: 8px !important;
+            min-width: 0;
+            flex-shrink: 1 !important;
+        }
+
         .df-login-btn {
-            background: var(--blue-700) !important;
-            color: #fff !important;
-            padding: 8px 16px;
+            background: var(--blue-700);
+            color: white !important;
+            padding: 6px 12px !important;
             border-radius: 8px;
             font-weight: 600;
             text-decoration: none;
             cursor: pointer;
             transition: 0.2s;
+            white-space: nowrap !important;
+            flex-shrink: 1 !important;
         }
 
             .df-login-btn:hover {
-                background: var(--blue-800) !important;
+                background: var(--blue-800);
             }
 
         .df-burger {
             display: none;
+            font-size: 24px;
             background: none;
             border: none;
-            color: var(--text);
-            font-size: 24px;
-        }
-
-        .df-nav-center {
-            display: flex;
-            gap: 22px;
+            padding: 6px;
+            cursor: pointer;
+            margin-left: 4px;
+            flex-shrink: 0 !important;
         }
 
         /* ============================================
-                   MOBILMENY
-                ============================================ */
+                       RESPONSIVT BETEENDE
+            ============================================ */
+
+        /* När burgermenyn aktiveras → dölj login-knapparna */
+        @@media (max-width: 1100px) {
+            .df-nav-center {
+                display: none !important;
+            }
+
+            .df-burger {
+                display: inline-block !important;
+            }
+
+            .df-login-actions .df-login-btn {
+                display: none !important;
+            }
+        }
+
+        @@media (max-width: 600px) {
+            header.df-nav {
+                padding-left: 12px !important;
+                padding-right: 12px !important;
+            }
+        }
+
+        /* ============================================
+                                 MOBILMENY
+            ============================================ */
+
         .df-mobile-menu {
             display: none;
             flex-direction: column;
             gap: 14px;
+            padding: 20px;
             background: var(--paper);
             border-bottom: 1px solid var(--border);
-            padding: 16px 20px;
+            text-align: center;
         }
 
+            .df-mobile-menu.open {
+                display: flex !important;
+            }
+
         .df-mobile-link {
-            color: var(--text);
+            color: var(--blue-900);
             font-weight: 600;
+            font-size: 17px;
             text-decoration: none;
         }
 
         .df-mobile-login {
             background: var(--blue-700);
-            color: #fff;
-            padding: 8px 12px;
+            color: white;
+            padding: 10px;
             border-radius: 8px;
-            text-align: center;
             font-weight: 600;
             text-decoration: none;
         }
 
         /* ============================================
-                   MAIN
-                ============================================ */
+                                 MAIN
+            ============================================ */
+
         main.container {
             max-width: 720px;
             margin: auto;
             padding: 0 16px;
-            width: 100%;
         }
 
         /* ============================================
-                   FOOTER
-                ============================================ */
+                                 FOOTER
+            ============================================ */
+
         .df-footer {
+            width: 100%;
             background: var(--paper);
             border-top: 1px solid var(--border);
-            padding: 50px 22px 20px;
-            margin-top: 60px;
+            padding: 40px 0 20px;
         }
 
         .df-footer-content {
-            max-width: 1100px;
-            margin: auto;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 22px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
         }
 
         .df-footer-col h4 {
             font-size: 18px;
-            margin-bottom: 12px;
-            font-weight: 700;
-            color: var(--blue-800);
+            margin-bottom: 16px;
+            color: var(--blue-900);
         }
 
-        .df-footer-col a,
-        .df-footer-col p {
-            margin: 6px 0;
+        .df-footer-col p,
+        .df-footer-col a {
+            font-size: 15px;
             color: var(--muted);
+            margin: 6px 0;
             text-decoration: none;
-            font-weight: 500;
+            transition: 0.2s ease;
         }
 
             .df-footer-col a:hover {
-                color: var(--blue-800);
-                text-decoration: underline;
+                color: var(--blue-700);
             }
 
-        .df-footer-logo {
-            height: 36px;
-            margin-bottom: 12px;
-        }
-
-        .df-footer-bottom {
-            text-align: center;
-            border-top: 1px solid var(--border);
-            margin-top: 40px;
-            padding-top: 18px;
-            color: var(--muted);
-            font-size: 14px;
-        }
-
-        /* ============================================
-                   SOCIALA MEDIER
-                ============================================ */
         .df-social {
             display: flex;
             gap: 14px;
@@ -204,85 +247,120 @@
         }
 
             .df-social a {
-                width: 38px;
-                height: 38px;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: var(--blue-700);
+                color: white;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                border-radius: 50%;
-                background: var(--blue-700);
-                color: #fff;
-                text-decoration: none;
-                font-size: 18px;
-                transition: 0.25s ease;
+                transition: 0.2s ease;
             }
 
                 .df-social a:hover {
-                    background: var(--blue-800);
-                    transform: translateY(-3px);
+                    background: var(--blue-900);
                 }
 
-        @@media (max-width: 768px) {
-            .df-social
-
-        {
-            justify-content: center;
+        .df-footer-bottom {
+            text-align: center;
+            margin-top: 38px;
+            padding-top: 16px;
+            font-size: 14px;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
         }
 
+        @@media (max-width: 1100px) {
+            .df-footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @@media (max-width: 650px) {
+            .df-footer-content {
+                grid-template-columns: 1fr !important;
+                text-align: center;
+                justify-items: center;
+            }
         }
 
         /* ============================================
-                   RESPONSIV NAV
-                ============================================ */
-        @@media (max-width: 900px) {
-            .df-nav-center
+                   EXTREMT SMÅ SKÄRMAR (iPhone SE)
+            ============================================ */
 
-        {
-            display: none !important;
+        @@media (max-width: 360px) {
+            .df-login-actions {
+                gap: 4px !important;
+            }
+
+            .df-login-btn {
+                padding: 4px 8px !important;
+                font-size: 12px !important;
+                max-width: 90px !important;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .df-burger {
+                font-size: 20px !important;
+                margin-left: 6px !important;
+            }
+
+            .df-logo img {
+                height: 24px !important;
+            }
         }
 
-        .df-login-btn {
-            display: none !important;
+        /* ============================================
+                   ULTRA SMÅ SKÄRMAR (<300px)
+            ============================================ */
+
+        @@media (max-width: 300px) {
+            /* Redundant nu egentligen — men kvar om du vill behålla det */
+            .df-login-btn {
+                display: none !important;
+            }
+
+            .df-burger {
+                display: inline-block !important;
+                font-size: 18px !important;
+            }
+
+            header.df-nav {
+                padding-left: 8px !important;
+                padding-right: 8px !important;
+            }
         }
 
-        .df-burger {
-            display: inline-flex !important;
-        }
-
-        }
-
-        @@media (max-width: 768px) {
-            .df-footer-content
-
-        {
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-            text-align: center !important;
-            gap: 32px !important;
-        }
-
-        }
     </style>
+
+
 
     @RenderSection("Styles", required: false)
 </head>
 
 <body>
 
-    <!-- HEADER -->
+    <!-- ============================
+             NAVBAR
+    ============================ -->
     <header class="df-nav">
+
+        <!-- LOGO -->
         <a class="df-logo" asp-page="/Index">
-            <img src="/images/dentalflow-logo-blue.svg" alt="DentalFlow">
+            <img src="/images/dentalflow-logo-blue.svg" alt="DentalFlow" />
         </a>
 
+        <!-- CENTRERAD NAV-MENY -->
         <nav class="df-nav-center">
             <a href="/" class="df-link">Hem</a>
             <a asp-page="/Services/Index" class="df-link">Behandlingar</a>
 
             @if (SignInManager.IsSignedIn(User) && User.IsInRole("Customer"))
             {
-                <a asp-page="/Booking/Index" class="df-link">Boka tid</a>
+                <a asp-page="/Bookings/Index" class="df-link">Boka tid</a>
             }
 
             <a asp-page="/About" class="df-link">Om oss</a>
@@ -295,11 +373,12 @@
 
             @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
             {
-                <a href="/Admin" class="df-link" style="color:var(--blue-700); font-weight:700;">Adminpanel</a>
+                <a href="/Admin" class="df-link" style="color: var(--blue-700); font-weight: 700;">Adminpanel</a>
             }
         </nav>
 
-        <div>
+        <!-- LOGIN & BURGER (HÖGER) -->
+        <div class="df-login-actions">
             @if (SignInManager.IsSignedIn(User))
             {
                 <a href="/Identity/Account/Manage" class="df-login-btn">Mitt konto</a>
@@ -317,16 +396,19 @@
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>
+
     </header>
 
-    <!-- MOBILMENY -->
+    <!-- ============================
+             MOBILMENY
+    ============================ -->
     <nav id="dfMobileMenu" class="df-mobile-menu">
         <a asp-page="/Index" class="df-mobile-link">Hem</a>
         <a asp-page="/Services/Index" class="df-mobile-link">Behandlingar</a>
 
         @if (SignInManager.IsSignedIn(User) && User.IsInRole("Customer"))
         {
-            <a asp-page="/Booking/Index" class="df-mobile-link">Boka tid</a>
+            <a asp-page="/Bookings/Index" class="df-mobile-link">Boka tid</a>
         }
 
         <a asp-page="/About" class="df-mobile-link">Om oss</a>
@@ -356,18 +438,22 @@
         }
     </nav>
 
-    <!-- MAIN CONTENT -->
+    <!-- ============================
+                MAIN
+    ============================ -->
     <main class="container">
         @RenderBody()
     </main>
 
-    <!-- FOOTER -->
+    <!-- ============================
+                FOOTER
+    ============================ -->
     <footer class="df-footer">
 
         <div class="df-footer-content">
 
-            <div class="df-footer-col logo-col">
-                <img src="/images/dentalflow-logo-blue.svg" class="df-footer-logo" />
+            <div class="df-footer-col">
+                <img src="/images/dentalflow-logo-blue.svg" class="df-footer-logo" style="height:40px; margin-bottom:12px;" />
                 <p>Enkelt, tryggt och modernt bokningssystem för tandvård.</p>
             </div>
 
@@ -386,7 +472,6 @@
                 <p>Telefon: 08-123 456 78</p>
             </div>
 
-            <!-- SOCIALA MEDIER -->
             <div class="df-footer-col">
                 <h4>Följ oss</h4>
                 <div class="df-social">
@@ -402,16 +487,18 @@
         <div class="df-footer-bottom">
             © @DateTime.Now.Year DentalFlow — Alla rättigheter förbehållna
         </div>
-
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     @RenderSection("Scripts", required: false)
 
     <script>
-        const burger = document.getElementById('dfBurger');
-        const mobile = document.getElementById('dfMobileMenu');
-        burger?.addEventListener('click', () => {
-            mobile.style.display = mobile.style.display === 'flex' ? 'none' : 'flex';
+        const burger = document.getElementById("dfBurger");
+        const mobile = document.getElementById("dfMobileMenu");
+
+        burger.addEventListener("click", () => {
+            mobile.style.display = mobile.style.display === "flex" ? "none" : "flex";
         });
     </script>
 

@@ -4,8 +4,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using DentalFlow.Data.Seed;
 using DentalFlow.Models;
+using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
+
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
 
 // -----------------------------
 // Database + Identity
@@ -21,10 +26,11 @@ builder.Services
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
 
-// Razor Pages
-builder.Services.AddRazorPages();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<EmailService>();
+
+
 
 // Session MUST be enabled before building the app
 builder.Services.AddSession();

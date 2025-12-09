@@ -9,35 +9,50 @@
 
 <div class="df-container">
 
+    <!-- Datumväljare -->
     <h2 class="df-title-2">Välj datum</h2>
 
-    <input name="selectedDate"
+    <input name="SelectedDate"
            type="date"
+           min="@DateTime.Today.ToString("yyyy-MM-dd")"
            value="@Model.SelectedDate.ToString("yyyy-MM-dd")"
            class="form-control"
-           onchange="window.location='@Url.Page("/Bookings/Index", new { ServiceId = Model.ServiceId })&selectedDate=' + this.value;" />
+           onchange="window.location='@Url.Page("/Bookings/Index", new { ServiceId = Model.ServiceId })&SelectedDate=' + this.value;" />
 
+    <!-- Tidsväljare -->
     <h2 class="df-title-2 mt-4">Välj tid</h2>
 
-    @if (Model.AvailableTimes != null)
-    {
-        <div class="df-time-grid">
-            @foreach (var time in Model.AvailableTimes)
+    <div class="df-time-grid">
+        @foreach (var slot in Model.AvailableTimes)
+        {
+            if (slot.IsPast)
             {
-                <a class="df-card-time"
-   href="@Url.Page("/Bookings/Review", new {
-        ServiceId = Model.ServiceId,
-        DateTimeString = time.ToString("yyyy-MM-ddTHH:mm")
-   })">
-    @time.ToString("HH:mm")
-</a>
-
-
-
-
+                <!-- GAMMAL TID -->
+                <button class="time-btn past" disabled>
+                    @slot.Time.ToString("HH:mm")
+                </button>
             }
-        </div>
-    }
+            else if (slot.IsBooked)
+            {
+                <!-- UPPTAGEN TID -->
+                <button class="time-btn booked" disabled>
+                    @slot.Time.ToString("HH:mm")
+                </button>
+            }
+            else
+            {
+                <!-- LEDIG TID -->
+                <form method="get" action="@Url.Page("/Bookings/Review")">
+                    <input type="hidden" name="ServiceId" value="@Model.ServiceId" />
+                    <input type="hidden" name="DateTimeString" value="@slot.Time.ToString("yyyy-MM-ddTHH:mm")" />
+                    <button class="time-btn available">
+                        @slot.Time.ToString("HH:mm")
+                    </button>
+                </form>
+            }
+        }
+    </div>
+
 </div>
 
 <style>
@@ -60,25 +75,43 @@
     .df-time-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
+        gap: 12px;
         margin-top: 10px;
     }
 
-    .df-card-time {
-        padding: 10px;
-        background: #f8f8f8;
-        border-radius: 8px;
+    .time-btn {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 10px;
+        font-size: 17px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s ease;
         text-align: center;
-        font-size: 16px;
-        text-decoration: none;
-        color: #000;
-        border: 1px solid #ddd;
-        transition: 0.2s;
     }
 
-        .df-card-time:hover {
-            background: #007bff;
+        /* ----- LEDIG (GRÖN) ----- */
+        .time-btn.available {
+            background: #4caf50;
             color: white;
-            border-color: #007bff;
+        }
+
+            .time-btn.available:hover {
+                background: #43a047;
+            }
+
+        /* ----- UPPTAGEN (RÖD) ----- */
+        .time-btn.booked {
+            background: #f44336;
+            color: white;
+            cursor: not-allowed;
+        }
+
+        /* ----- FÖRBI (GRÅ) ----- */
+        .time-btn.past {
+            background: #e0e0e0;
+            color: #777;
+            cursor: not-allowed;
         }
 </style>

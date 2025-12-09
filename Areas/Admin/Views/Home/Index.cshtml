@@ -3,9 +3,11 @@
 }
 
 <style>
-    /* ===============================
-           MODERNA STAT CARDS
-        =============================== */
+
+    /* ============================================================
+            MODERNA STAT CARDS
+       ============================================================ */
+
     .df-admin-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -22,7 +24,7 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
-        transition: 0.2s ease;
+        transition: 0.25s ease;
         position: relative;
         overflow: hidden;
     }
@@ -32,6 +34,7 @@
             box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
         }
 
+        /* Card titles */
         .df-admin-card h5 {
             font-size: 18px;
             font-weight: 700;
@@ -39,10 +42,11 @@
             margin: 0;
         }
 
+    /* Main values */
     .df-admin-value {
         font-size: 42px;
         font-weight: 800;
-        color: #1A74E4;
+        color: #7BA4BE; /* harmonisk blå */
         margin: 0;
     }
 
@@ -51,7 +55,7 @@
         position: absolute;
         top: 12px;
         right: 12px;
-        background: #1A74E4;
+        background: #7BA4BE;
         color: #fff;
         width: 38px;
         height: 38px;
@@ -61,42 +65,67 @@
         justify-content: center;
         font-size: 18px;
         opacity: 0.85;
-    }
-
-    .df-admin-card.success .df-admin-value {
-        color: #0d9d58;
-    }
-
-    .df-admin-card.success .df-admin-icon {
-        background: #0d9d58;
-    }
-
-    .df-admin-card.warning .df-admin-value {
-        color: #d9a600;
-    }
-
-    .df-admin-card.warning .df-admin-icon {
-        background: #d9a600;
-    }
-
-    /* ===============================
-           BUTTONS
-        =============================== */
-    .df-admin-btn {
-        background: #1A74E4;
-        color: #fff !important;
-        padding: 10px 16px;
-        border-radius: 8px;
-        font-weight: 600;
-        text-decoration: none;
-        display: inline-block;
-        margin-bottom: 14px;
         transition: 0.2s ease;
     }
 
-        .df-admin-btn:hover {
-            background: #0d4fa6;
+    .df-admin-card:hover .df-admin-icon {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+
+    /* Success card */
+    .df-admin-card.success .df-admin-value {
+        color: #57B894;
+    }
+
+    .df-admin-card.success .df-admin-icon {
+        background: #57B894;
+    }
+
+    /* Warning card */
+    .df-admin-card.warning .df-admin-value {
+        color: #D9A34A;
+    }
+
+    .df-admin-card.warning .df-admin-icon {
+        background: #D9A34A;
+    }
+
+
+
+    /* ============================================================
+            HARMONISKA KNAPPAR (Samma som bokningar)
+       ============================================================ */
+
+    .btn-primary-soft {
+        background-color: #7BA4BE !important;
+        color: white !important;
+        border: none !important;
+        padding: 10px 18px;
+        border-radius: 10px;
+        font-weight: 600;
+        display: inline-flex !important;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+        transition: transform 0.15s ease, box-shadow 0.2s ease;
+    }
+
+        .btn-primary-soft:hover {
+            background-color: #6a90a8 !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.12);
         }
+
+        .btn-primary-soft:active {
+            transform: translateY(0);
+        }
+
+
+
+    /* ============================================================
+            BACK BUTTON (modern + harmonisk)
+       ============================================================ */
 
     .df-back {
         text-decoration: none;
@@ -106,12 +135,24 @@
         align-items: center;
         gap: 6px;
         margin-top: 6px;
+        transition: 0.2s ease;
     }
 
-        .df-back:hover {
-            text-decoration: underline;
+        .df-back i {
+            transition: transform 0.2s ease;
         }
+
+        .df-back:hover {
+            color: #0b58b2;
+        }
+
+            .df-back:hover i {
+                transform: translateX(-3px);
+            }
+
 </style>
+
+
 
 
 <h1 class="mb-4" style="font-weight:800;">Adminpanelen</h1>
@@ -142,9 +183,10 @@
 
 </div>
 
-<!-- BUTTONS -->
-<a asp-area="Admin" asp-controller="Bookings" asp-action="Index" class="df-admin-btn">
-    Gå till bokningar
+<!-- BUTTON LINK -->
+<a asp-area="Admin" asp-controller="Bookings" asp-action="Index" class="btn-primary-soft">
+    <i class="fa-solid fa-calendar-days"></i>
+    <span>Gå till bokningar</span>
 </a>
 
 

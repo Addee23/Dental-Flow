@@ -3,11 +3,9 @@ using DentalFlow.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
 
 namespace DentalFlow.Pages.Bookings
 {
-    [Authorize(Roles = "Customer")]
     public class IndexModel : PageModel
     {
         private readonly AppDbContext _context;
@@ -21,35 +19,53 @@ namespace DentalFlow.Pages.Bookings
         public int ServiceId { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public DateTime SelectedDate { get; set; } = DateTime.Today;
+        public DateTime SelectedDate { get; set; }
 
-        public List<DateTime> AvailableTimes { get; set; } = new();
+        public List<TimeSlot> AvailableTimes { get; set; } = new();
+
+        public class TimeSlot
+        {
+            public DateTime Time { get; set; }
+            public bool IsPast { get; set; }
+            public bool IsBooked { get; set; }
+        }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            if (ServiceId == 0)
-                return RedirectToPage("/Services/Index");
+            if (SelectedDate == DateTime.MinValue)
+                SelectedDate = DateTime.Today;
 
-            await LoadTimes();
-            return Page();
-        }
+            if (SelectedDate < DateTime.Today)
+                SelectedDate = DateTime.Today;
 
-        private async Task LoadTimes()
-        {
-            var booked = await _context.Bookings
+            var now = DateTime.Now;
+
+            // Hämta redan bokade tider
+            var bookedTimes = await _context.Bookings
                 .Where(b => b.ServiceId == ServiceId &&
                             b.DateTime.Date == SelectedDate.Date)
-                .Select(b => b.DateTime)
+                .Select(b => b.DateTime.TimeOfDay)
                 .ToListAsync();
 
-            AvailableTimes = Enumerable.Range(8, 9)
-                .Select(h => new DateTime(
+            // Generera tider 08–17
+            for (int hour = 8; hour <= 17; hour++)
+            {
+                var t = new DateTime(
                     SelectedDate.Year,
                     SelectedDate.Month,
                     SelectedDate.Day,
-                    h, 0, 0))
-                .Where(t => !booked.Contains(t))
-                .ToList();
+                    hour, 0, 0
+                );
+
+                AvailableTimes.Add(new TimeSlot
+                {
+                    Time = t,
+                    IsPast = (SelectedDate == DateTime.Today && t <= now),
+                    IsBooked = bookedTimes.Contains(t.TimeOfDay)
+                });
+            }
+
+            return Page();
         }
     }
 }

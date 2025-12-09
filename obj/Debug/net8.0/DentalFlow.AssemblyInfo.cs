@@ -12,10 +12,11 @@ using System;
 using System.Reflection;
 
 [assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("880cc15d-abb5-4799-a167-8e95ced8b41a")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("DentalFlow")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3cf0fa2501e75580292473e569beef5c527ee4d3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2114954b97808be71ea256305f618a3f17b6957c")]
 [assembly: System.Reflection.AssemblyProductAttribute("DentalFlow")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DentalFlow")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

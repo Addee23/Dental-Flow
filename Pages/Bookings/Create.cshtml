@@ -7,48 +7,62 @@
 
 <h2>Boka tid</h2>
 
-<div class="mb-4">
-    <h4>@Model.Service.Name</h4>
-    <p>@Model.Service.Name</p>   <!-- SÄKER ersättning -->
-</div>
+<!-- Visa valideringsfel -->
+<div asp-validation-summary="All" class="text-danger mb-3"></div>
 
+<form method="post">
 
-<form method="post" class="mt-4">
-
-    <!-- Datum och tid -->
+    <!-- Datumväljare -->
     <div class="mb-3">
-        <label for="DateTime" class="form-label">Välj datum och tid</label>
-        <input asp-for="Booking.DateTime" type="datetime-local" class="form-control" />
-        <span asp-validation-for="Booking.DateTime" class="text-danger"></span>
+        <label class="form-label">Välj datum</label>
+
+        <select asp-for="BookingDate" class="form-control" onchange="this.form.submit()">
+            @foreach (var d in Model.Dates)
+            {
+                if (d < DateTime.Today)
+                {
+                    <option disabled>@d.ToString("yyyy-MM-dd") (förbi)</option>
+                }
+                else
+                {
+                    <option value="@d.ToString("yyyy-MM-dd")"
+                            selected="@(Model.BookingDate == d.ToString("yyyy-MM-dd") ? "selected" : null)">
+                        @d.ToString("yyyy-MM-dd")
+                    </option>
+                }
+            }
+        </select>
     </div>
 
-    <!-- Namn -->
+    <!-- Tider -->
     <div class="mb-3">
-        <label for="Name" class="form-label">Ditt namn</label>
-        <input asp-for="Booking.Name" class="form-control" />
-        <span asp-validation-for="Booking.Name" class="text-danger"></span>
+        <label class="form-label">Välj tid</label>
+
+        <div class="d-flex gap-2 flex-wrap">
+            @foreach (var t in Model.TimeSlots)
+            {
+                if (t.IsPast)
+                {
+                    <button type="button" class="btn btn-secondary disabled">@t.Time</button>
+                }
+                else
+                {
+                    <button type="submit"
+                            name="SelectedTime"
+                            value="@t.Time"
+                            class="btn btn-outline-primary">
+                        @t.Time
+                    </button>
+                }
+            }
+        </div>
     </div>
 
-    <!-- Email -->
-    <div class="mb-3">
-        <label for="Email" class="form-label">Din e-post</label>
-        <input asp-for="Booking.Email" type="email" class="form-control" />
-        <span asp-validation-for="Booking.Email" class="text-danger"></span>
-    </div>
-
-    <!-- Telefon -->
-    <div class="mb-3">
-        <label for="Phone" class="form-label">Telefonnummer (valfritt)</label>
-        <input asp-for="Booking.Phone" class="form-control" />
-        <span asp-validation-for="Booking.Phone" class="text-danger"></span>
-    </div>
-
-    <!-- Dold input för ServiceId -->
+    <!-- Hidden fields -->
+    <input type="hidden" asp-for="BookingDate" />
+    <input type="hidden" asp-for="Booking.Name" />
+    <input type="hidden" asp-for="Booking.Email" />
+    <input type="hidden" asp-for="Booking.Phone" />
     <input type="hidden" asp-for="Booking.ServiceId" />
 
-    <button type="submit" class="btn btn-primary">Bekräfta bokning</button>
 </form>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}

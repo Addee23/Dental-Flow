@@ -3,50 +3,284 @@
     Layout = "/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<!-- CSS för responsivt cards-läge på små skärmar -->
 <style>
-    /* Döljer tabellen på mobil */
-    @@media (max-width: 768px) {
-        .desktop-table
 
-    {
-        display: none !important;
+    /* ============================================================
+            DESKTOP > 1100px
+       ============================================================ */
+    @@media (min-width: 1101px) {
+        .desktop-table {
+            display: block !important;
+        }
+
+        .mobile-cards {
+            display: none !important;
+        }
     }
 
+    /* ============================================================
+            TABLET 768–1100px
+       ============================================================ */
+    @@media (min-width: 768px) and (max-width: 1100px) {
+
+        .desktop-table {
+            display: none !important;
+        }
+
+        .mobile-cards {
+            display: block !important;
+        }
+
+        .filter-row {
+            flex-direction: column !important;
+            width: 100%;
+            align-items: stretch !important;
+            gap: 8px;
+        }
+
+            .filter-row input,
+            .filter-row select,
+            .filter-row button,
+            .filter-row a {
+                width: 100% !important;
+            }
+
+        .btn {
+            padding: 6px 10px !important;
+            font-size: 0.9rem !important;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+        }
     }
 
-    /* Döljer cards på desktop */
-    @@media (min-width: 769px) {
-        .mobile-cards
+    /* ============================================================
+            MOBIL < 768px
+              ============================================================ */
+    @@media (max-width: 767px) {
 
-    {
-        display: none !important;
+        .desktop-table {
+            display: none !important;
+        }
+
+        .mobile-cards {
+            display: block !important;
+        }
+
+        .filter-row {
+            flex-direction: column !important;
+            width: 100%;
+        }
+
+            .filter-row input,
+            .filter-row select,
+            .filter-row button,
+            .filter-row a {
+                width: 100% !important;
+            }
+
+        .btn {
+            width: 100%;
+        }
     }
 
+    /* ============================================================
+            BASE BUTTON SETTINGS + ANIMATIONER
+       ============================================================ */
+
+    .btn {
+        white-space: nowrap;
+        transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
     }
 
-    /* Card styling */
+        .btn:hover {
+            box-shadow: 0 3px 6px rgba(0,0,0,0.12);
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+        }
+
+    /* Ikon + text i knappar */
+    .btn-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+    }
+
+        .btn-icon i {
+            font-size: 0.9em;
+        }
+
+    /* ============================================================
+            Desktop — symmetriska knappar i tabell
+       ============================================================ */
+    .desktop-table .action-row {
+        display: flex;
+        gap: 6px;
+    }
+
+        .desktop-table .action-row .btn {
+            flex: 1;
+        }
+
+    /* ============================================================
+            Mobile card styles
+       ============================================================ */
     .booking-card {
         background: #fff;
-        padding: 16px;
-        border-radius: 8px;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-        margin-bottom: 16px;
+        padding: 18px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        margin-bottom: 18px;
     }
+
+        .booking-card p {
+            margin: 4px 0;
+        }
 
         .booking-card strong {
             display: inline-block;
-            width: 120px;
+            width: 130px;
         }
 
-        .booking-card .btn {
-            width: 100%;
+    /* ============================================================
+            Mobile/Tablet – buttons in row (Alternativ 1)
+              ============================================================ */
+    .mobile-cards .btn-row {
+        display: flex;
+        gap: 10px;
+        justify-content: space-between;
+    }
+
+        .mobile-cards .btn-row .btn {
+            flex: 1;
         }
+
+    /* ============================================================
+            FILTER ROW DEFAULT
+       ============================================================ */
+    .filter-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    /* ============================================================
+            Harmoniska färger — Action-knappar
+       ============================================================ */
+
+    /* Redigera */
+    .btn-edit {
+        background-color: #F4A259 !important;
+        color: white !important;
+        border: none !important;
+    }
+
+        .btn-edit:hover {
+            background-color: #e38f47 !important;
+        }
+
+    /* Detaljer */
+    .btn-details {
+        background-color: #7BA4BE !important;
+        color: white !important;
+        border: none !important;
+    }
+
+        .btn-details:hover {
+            background-color: #6a90a8 !important;
+        }
+
+    /* Ta bort */
+    .btn-delete {
+        background-color: #D26464 !important;
+        color: white !important;
+        border: none !important;
+    }
+
+        .btn-delete:hover {
+            background-color: #b85656 !important;
+        }
+
+    /* ============================================================
+            Harmoniska färger — Filter + Ny bokning
+       ============================================================ */
+
+    /* Primär (Skapa ny bokning, Filtrera) */
+    .btn-primary-soft {
+        background-color: #7BA4BE !important;
+        color: white !important;
+        border: none !important;
+    }
+
+        .btn-primary-soft:hover {
+            background-color: #6a90a8 !important;
+        }
+
+    /* Sekundär (Återställ) */
+    .btn-secondary-soft {
+        background-color: #AAB8C2 !important;
+        color: white !important;
+        border: none !important;
+    }
+
+        .btn-secondary-soft:hover {
+            background-color: #92A0AA !important;
+        }
+
 </style>
+
+
+
 
 <h1 class="mb-3">Bokningar</h1>
 
-<a asp-action="Create" class="btn btn-primary mb-3">Skapa ny bokning</a>
+<!-- FILTER -->
+<form method="get" asp-action="Index" class="mb-3">
+    <div class="filter-row">
+
+        <input type="date"
+               name="date"
+               class="form-control"
+               value="@ViewBag.SelectedDate" />
+
+        <select name="month" class="form-control" style="max-width: 200px;">
+            <option value="">Alla månader</option>
+
+            @for (int m = 1; m <= 12; m++)
+            {
+                bool selected = ViewBag.SelectedMonth == m;
+                <option value="@m" selected="@(selected ? "selected" : null)">
+                    @System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m)
+                </option>
+            }
+        </select>
+
+        <button type="submit" class="btn btn-primary-soft btn-icon">
+            <i class="fa-solid fa-filter"></i>
+            <span>Filtrera</span>
+        </button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary-soft btn-icon">
+            <i class="fa-solid fa-rotate-left"></i>
+            <span>Återställ</span>
+        </a>
+
+    </div>
+</form>
+
+<a asp-action="Create" class="btn btn-primary-soft btn-icon mb-3">
+    <i class="fa-solid fa-plus"></i>
+    <span>Skapa ny bokning</span>
+</a>
+
+
 
 <!-- DESKTOP TABLE -->
 <div class="table-responsive desktop-table">
@@ -58,7 +292,7 @@
                 <th>Telefon</th>
                 <th>Datum & tid</th>
                 <th>Behandling</th>
-                <th></th>
+                <th style="width:200px;"></th>
             </tr>
         </thead>
 
@@ -71,20 +305,35 @@
                     <td>@item.Phone</td>
                     <td>@item.DateTime.ToString("yyyy-MM-dd HH:mm")</td>
                     <td>@item.Service?.Name</td>
+
+                    <!-- DESKTOP – harmoniska knappar med ikoner -->
                     <td>
-                        <div class="d-flex flex-wrap gap-2">
-                            <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.Id">Redigera</a>
-                            <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.Id">Detaljer</a>
-                            <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.Id">Ta bort</a>
+                        <div class="action-row">
+                            <a class="btn btn-sm btn-edit btn-icon" asp-action="Edit" asp-route-id="@item.Id">
+                                <i class="fa-solid fa-pen"></i>
+                                <span>Redigera</span>
+                            </a>
+                            <a class="btn btn-sm btn-details btn-icon" asp-action="Details" asp-route-id="@item.Id">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <span>Detaljer</span>
+                            </a>
+                            <a class="btn btn-sm btn-delete btn-icon" asp-action="Delete" asp-route-id="@item.Id">
+                                <i class="fa-solid fa-trash"></i>
+                                <span>Ta bort</span>
+                            </a>
                         </div>
                     </td>
+
                 </tr>
             }
         </tbody>
     </table>
 </div>
 
-<!-- MOBILE CARDS -->
+
+
+
+<!-- MOBILE + TABLET CARDS -->
 <div class="mobile-cards">
     @foreach (var item in Model)
     {
@@ -95,25 +344,36 @@
             <p><strong>Datum:</strong> @item.DateTime.ToString("yyyy-MM-dd HH:mm")</p>
             <p><strong>Behandling:</strong> @item.Service?.Name</p>
 
-            <div class="mt-3 d-flex flex-column gap-2">
-                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Redigera</a>
-                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Detaljer</a>
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Ta bort</a>
+            <div class="btn-row mt-3">
+                <a class="btn btn-edit btn-icon" asp-action="Edit" asp-route-id="@item.Id">
+                    <i class="fa-solid fa-pen"></i>
+                    <span>Redigera</span>
+                </a>
+                <a class="btn btn-details btn-icon" asp-action="Details" asp-route-id="@item.Id">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>Detaljer</span>
+                </a>
+                <a class="btn btn-delete btn-icon" asp-action="Delete" asp-route-id="@item.Id">
+                    <i class="fa-solid fa-trash"></i>
+                    <span>Ta bort</span>
+                </a>
             </div>
+
         </div>
     }
 </div>
 
+
+
+<!-- BACK BUTTON -->
 <a href="/Admin"
    style="
-        display:inline-flex;
+        display:flex;
         align-items:center;
         gap:6px;
         text-decoration:none;
         font-weight:600;
-        color:var(--blue-700);
-        margin-bottom:16px;
+        margin-top:20px;
         cursor:pointer;">
-    <i class="fa-solid fa-arrow-left"></i>
-    Tillbaka till adminpanelen
+    <i class="fa-solid fa-arrow-left"></i> Tillbaka till adminpanelen
 </a>
