@@ -31,11 +31,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<EmailService>();
 
 
-
-// Session MUST be enabled before building the app
 builder.Services.AddSession();
 
-// Avoid implicit required errors
 builder.Services.Configure<Microsoft.AspNetCore.Mvc.MvcOptions>(o =>
 {
     o.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
@@ -53,9 +50,7 @@ using (var scope = app.Services.CreateScope())
     SeedData.Initialize(db);
 }
 
-// -----------------------------
-// Middleware pipeline
-// -----------------------------
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
@@ -67,26 +62,24 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// ✔ FIX: Session MUST COME BEFORE Authentication/Authorization
+
 app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Admin route
-// Admin route – måste ligga först
+
 app.MapAreaControllerRoute(
     name: "admin",
     areaName: "Admin",
     pattern: "admin/{controller=Home}/{action=Index}/{id?}");
 
-// Default route
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
-// Razor Pages routing
 app.MapRazorPages();
 
 // Seed roles + admin user

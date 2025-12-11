@@ -355,7 +355,8 @@
 
         <!-- CENTRERAD NAV-MENY -->
         <nav class="df-nav-center">
-            <a href="/" class="df-link">Hem</a>
+            <a asp-controller="Home" asp-action="Index" class="df-link">Hem</a>
+
             <a asp-page="/Services/Index" class="df-link">Behandlingar</a>
 
             @if (SignInManager.IsSignedIn(User) && User.IsInRole("Customer"))
@@ -403,7 +404,8 @@
              MOBILMENY
     ============================ -->
     <nav id="dfMobileMenu" class="df-mobile-menu">
-        <a asp-page="/Index" class="df-mobile-link">Hem</a>
+        <a asp-controller="Home" asp-action="Index" class="df-mobile-link">Hem</a>
+
         <a asp-page="/Services/Index" class="df-mobile-link">Behandlingar</a>
 
         @if (SignInManager.IsSignedIn(User) && User.IsInRole("Customer"))

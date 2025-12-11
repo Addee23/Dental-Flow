@@ -165,7 +165,7 @@ else
             margin-top: 20px;
         }
 
-        /* ===== MOBIL  STÄLL OM TABELLEN TILL KORT ===== */
+       
         @@media (max-width: 600px) {
             .df-table, .df-table thead, .df-table tbody, .df-table th, .df-table td, .df-table tr
 
@@ -174,12 +174,12 @@ else
             width: 100% !important;
         }
 
-        /* Dölj headern */
+       
         .df-table thead {
             display: none !important;
         }
 
-        /* Varje rad blir ett kort */
+       
         .df-table tr {
             margin-bottom: 14px;
             padding: 12px;
@@ -187,8 +187,7 @@ else
             border-radius: 10px;
             background: var(--paper);
         }
-
-        /* Varje cell blir egen rad med label */
+        
         .df-table td {
             padding: 8px 4px !important;
             position: relative;
@@ -197,7 +196,7 @@ else
             border-bottom: none !important;
         }
 
-            /* Lägg till rubrik före varje cell */
+         
             .df-table td:nth-child(1)::before {
                 content: "Behandling: ";
                 font-weight: 600;
@@ -222,7 +221,7 @@ else
                 color: var(--blue-800);
             }
 
-            /* Avboka-knappen center */
+          
             .df-table td:nth-child(5) {
                 text-align: center !important;
                 margin-top: 10px;

@@ -6,9 +6,7 @@ namespace DentalFlow.Services
 {
     public class BookingLogic
     {
-        /// <summary>
-        /// Kontrollerar om en ny bokningstid är ledig baserat på befintliga bokningar.
-        /// </summary>
+       
         public bool IsTimeAvailable(DateTime newStart, int newServiceDuration, List<Booking> existingBookings)
         {
             // Räkna ut sluttid för nya bokningen
